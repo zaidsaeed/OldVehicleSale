@@ -4,14 +4,18 @@
   "description": "A FULL STACK CRUD APP TO SELL USED MOTORIZED VEHICLES",
   "main": "server.js",
   "scripts": {
+    "client-install": "cd ../client && npm install",
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "client": "cd ../client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "GROUP 33",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "concurrently": "^3.5.1",
     "express": "^4.16.3",
     "gravatar": "^1.6.0",
     "jsonwebtoken": "^8.2.1",
