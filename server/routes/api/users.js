@@ -14,6 +14,9 @@ const passport = require("passport");
 //Load User Model
 const User = require("../../models/User");
 
+const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
+
 //@route GET api/users/test
 //@desc TESTS post route
 //@access Public
@@ -23,9 +26,17 @@ router.get("/test", (req, res) => res.json({ msg: "USERS WORKS" }));
 //@desc Register a user
 //@access Public
 router.post("/register", (req, res) => {
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  //Check Validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      return res.status(400).json({ email: "Email already exists" });
+      errors.email = "Email already exists";
+      return res.status(400).json({ errors });
     } else {
       const avatar = gravatar.url(req.body.email, {
         s: "200", //Size
@@ -58,12 +69,17 @@ router.post("/register", (req, res) => {
 //@desc Login user/ Return JWT Token
 //@access Public
 router.post("/login", (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+  if (!isValid) {
+    return res.status(400).json({ errors });
+  }
   const email = req.body.email;
   const password = req.body.password;
 
   User.findOne({ email }).then(user => {
     if (!user) {
-      return res.status(404).json({ email: "User not found" });
+      errors.email = "User not found";
+      return res.status(404).json({ errors });
     }
 
     bcrypt.compare(password, user.password).then(isMatch => {
@@ -83,14 +99,15 @@ router.post("/login", (req, res) => {
           }
         );
       } else {
-        return res.status(400).json({ password: "Password Incorrect" });
+        errors.password = "Password Incorrct";
+        return res.status(400).json({ errors });
       }
     });
   });
 });
 
 //@route GET api/users/test
-//@desc Return current user
+//@desc Return current user from token in bearer header
 //@access Private
 router.get(
   "/current",
