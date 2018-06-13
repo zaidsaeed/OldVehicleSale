@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { PropTypes } from "prop-types";
-
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
@@ -49,9 +48,7 @@ class Register extends Component {
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">
-                Create your DevConnector account
-              </p>
+              <p className="lead text-center">Create your OldVehicle account</p>
               <form noValidate onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
@@ -64,7 +61,7 @@ class Register extends Component {
                     value={this.state.name}
                     onChange={this.onChange}
                   />
-                  <div class="invalid-feedback">{errors.name}</div>
+                  <div class="invalid-feedback">{errors.email}</div>
                 </div>
                 <div className="form-group">
                   <input

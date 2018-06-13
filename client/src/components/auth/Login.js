@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import classnames from "classnames";
+import { loginUser } from "../../actions/authActions";
+import { connect } from "react-redux";
 
 class Login extends Component {
   constructor() {
@@ -11,6 +14,15 @@ class Login extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   onChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -19,11 +31,11 @@ class Login extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const user = {
+    const userData = {
       email: this.state.email,
       password: this.state.password
     };
-    console.log(user);
+    this.props.loginUser(userData);
   };
 
   render() {
@@ -35,14 +47,14 @@ class Login extends Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Log In</h1>
               <p className="lead text-center">
-                Sign in to your DevConnector account
+                Sign in to your OldVehicleSale account
               </p>
               <form noValidate onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
                     type="email"
                     className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.email
+                      "is-invalid": errors["email"]
                     })}
                     placeholder="Email Address"
                     name="email"
@@ -51,6 +63,7 @@ class Login extends Component {
                   />
                   <div class="invalid-feedback">{errors.email}</div>
                 </div>
+
                 <div className="form-group">
                   <input
                     type="password"
@@ -62,7 +75,9 @@ class Login extends Component {
                     value={this.state.password}
                     onChange={this.onChange}
                   />
-                  <div class="invalid-feedback">{errors.password}</div>
+                  {errors.password && (
+                    <div class="invalid-feedback">{errors.password}</div>
+                  )}
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
@@ -74,4 +89,18 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(Login);
