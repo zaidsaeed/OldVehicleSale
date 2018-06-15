@@ -14,6 +14,12 @@ class Login extends Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
@@ -68,7 +74,7 @@ class Login extends Component {
                   <input
                     type="password"
                     className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.email
+                      "is-invalid": errors.password
                     })}
                     placeholder="Password"
                     name="password"
