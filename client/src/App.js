@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 import jwt_decode from "jwt-decode";
@@ -11,6 +11,7 @@ import Footer from "./components/layout/Footer";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+import Posts from "./components/posts/Posts";
 
 //Check for token
 if (localStorage.jwtToken) {
@@ -43,6 +44,10 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
             </div>
+            {/* <Switch>
+              
+              <Route exact path="/feed" component={Posts} />
+            </Switch> */}
             <Footer />
           </div>
         </Router>
