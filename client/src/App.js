@@ -12,6 +12,7 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Posts from "./components/posts/Posts";
+import Search from "./components/layout/Search";
 
 //Check for token
 if (localStorage.jwtToken) {
@@ -39,6 +40,7 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
+            <Search />
             <Route exact path="/" component={Landing} />
             <div className="container">
               <Route exact path="/register" component={Register} />
