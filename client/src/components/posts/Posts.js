@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 // import { connect } from "react-redux";
 import PostForm from "./PostForm";
 //import Spinner from '../common/Spinner'; need this
+import Search from "../layout/Search";
 
 class Posts extends Component {
   render() {
@@ -11,6 +12,7 @@ class Posts extends Component {
         <div className="container">
           <div classNAme="row">
             <div className="col-md-12">
+              <Search />
               <PostForm />
             </div>
           </div>

@@ -51,7 +51,7 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors);
     }
-
+    console.log(req);
     const newPost = new Post({
       text: req.body.text,
       name: req.body.name,
