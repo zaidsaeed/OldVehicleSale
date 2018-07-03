@@ -21,7 +21,7 @@ router.get("/test", (req, res) => res.json({ msg: "Posts WORKS" }));
 //@desc Get posts
 //@access Public
 router.get("/", (req, res) => {
-  Posts.find()
+  Post.find()
     .sort({ date: -1 })
     .then(posts => res.json(posts))
     .catch(err => res.status(404).json({ nopostfound: "No Posts found" }));
@@ -31,8 +31,8 @@ router.get("/", (req, res) => {
 //@desc Get posts by id
 //@access Public
 router.get("/:id", (req, res) => {
-  Posts.findById(req.params.id)
-    .then(posts => res.json(post))
+  Post.findById(req.params.id)
+    .then(post => res.json(post))
     .catch(err =>
       res.status(404).json({ nopostfound: "No Post found with that ID" })
     );
@@ -70,7 +70,7 @@ router.delete(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Profile.findOne({ user: req.user.id }).then(profile => {
+    User.findOne({ user: req.user.id }).then(profile => {
       Post.findById(req.params.id)
         .then(post => {
           if (post.user.toString() != req.user.id) {
@@ -78,7 +78,6 @@ router.delete(
               .status(401)
               .json({ notauthorized: "User not authorized" });
           }
-
           //Deleting post
           post.remove().then(() => res.json({ success: true }));
         })
