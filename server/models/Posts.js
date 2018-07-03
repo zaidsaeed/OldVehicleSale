@@ -1,11 +1,16 @@
+// Creating Schema
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// Creating Schema
+// Create Schema
 const PostSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: "users"
+  },
+  title: {
+    type: String,
+    required: true
   },
   text: {
     type: String,
@@ -23,4 +28,4 @@ const PostSchema = new Schema({
   }
 });
 
-module.export = Post = mongoose.model("post", PostSchema);
+module.exports = Post = mongoose.model("post", PostSchema);
