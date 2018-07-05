@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPost } from "../../actions/postActions";
+import axios from "axios";
 
 class PostForm extends Component {
   constructor(props) {
@@ -12,6 +13,15 @@ class PostForm extends Component {
       description: "",
       erros: {}
     };
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.errors) {
+      this.setState({ errors: newProps.errors });
+    }
   }
 
   onSubmit() {

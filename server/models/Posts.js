@@ -1,8 +1,9 @@
+// Creating Schema
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 require("mongoose-type-url");
 
-// Creating Schema
+// Create Schema
 const PostSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,

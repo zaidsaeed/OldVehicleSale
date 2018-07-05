@@ -16,4 +16,10 @@ const store = createStore(
   )
 );
 
+// const store = createStore(
+//   rootReducer,
+//   initState,
+//   compose(applyMiddleware(...middleware))
+// );
+
 export default store;
