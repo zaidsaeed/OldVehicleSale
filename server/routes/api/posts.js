@@ -45,17 +45,17 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log("req", req.body);
     const { errors, isValid } = validatePostInput(req.body);
 
     //Check validation
     if (!isValid) {
       return res.status(400).json(errors);
     }
-    console.log(req);
     const newPost = new Post({
-      text: req.body.text,
-      name: req.body.name,
-      avatar: req.body.avatar,
+      description: req.body.description,
+      model: req.body.model,
+      imageURL: req.body.imageURL,
       user: req.user.id
     });
 

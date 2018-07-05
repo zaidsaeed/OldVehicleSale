@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import protos from "./ProtosArray";
 import Suggestions from "./Suggestions";
+import axios from "axios";
 
 export default class Search extends Component {
   constructor(props) {
@@ -12,29 +12,15 @@ export default class Search extends Component {
   }
 
   handleInputChange = () => {
-    this.setState({ query: this.search.value }, () => this.getBooks());
+    this.setState({ query: this.search.value }, () => this.getModels());
   };
 
-  filterBooks(keywords, book) {
-    if (
-      book.bookTitle.toLowerCase().indexOf(keywords.toLowerCase()) != -1 ||
-      book.author.toLowerCase().indexOf(keywords.toLowerCase()) != -1 ||
-      book.description.toLowerCase().indexOf(keywords.toLowerCase()) != -1
-    ) {
-      return book;
-    }
-  }
-
-  getBooks = () => {
-    const filteredBooks = protos.map(book =>
-      this.filterBooks(this.state.query, book)
-    );
-    this.setState({
-      results:
-        filteredBooks.length === 0 || typeof filteredBooks[0] === "undefined"
-          ? []
-          : filteredBooks
-    });
+  getModels = () => {
+    const temp = axios
+      .get("api/posts")
+      .then(res => this.setState({ results: res }))
+      .catch(err => console.log(err));
+    console.log(temp);
   };
 
   render() {

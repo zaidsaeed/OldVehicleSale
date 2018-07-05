@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+require("mongoose-type-url");
 
 // Creating Schema
 const PostSchema = new Schema({
@@ -7,15 +8,15 @@ const PostSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  text: {
+  model: {
+    type: String
+  },
+  description: {
     type: String,
     required: true
   },
-  name: {
-    type: String
-  },
-  avatar: {
-    type: String
+  imageURL: {
+    type: mongoose.SchemaTypes.Url
   },
   date: {
     type: Date,

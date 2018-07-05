@@ -12,6 +12,7 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Posts from "./components/posts/Posts";
+import PostForm from "./components/posts/PostForm";
 
 //Check for token
 if (localStorage.jwtToken) {
@@ -44,11 +45,9 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/dashboard" component={Posts} />
-            </div>
-            {/* <Switch>
-              
               <Route exact path="/feed" component={Posts} />
-            </Switch> */}
+              <Route exact path="/createPost" component={PostForm} />
+            </div>
             <Footer />
           </div>
         </Router>
