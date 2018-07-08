@@ -50,7 +50,12 @@ class Search extends Component {
           ref={input => (this.search = input)}
           onChange={this.handleInputChange}
         />
-        <Suggestions results={this.state.results} />
+        <Suggestions
+          results={this.state.results}
+          clearSuggestions={() => {
+            this.setState({ results: [] });
+          }}
+        />
       </form>
     );
   }

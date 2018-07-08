@@ -17,7 +17,11 @@ class Navbar extends Component {
       <Link to="/createPost">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <a href="a" className="nav-link">
+            <a
+              href="a"
+              style={{ color: "white", textDecoration: "none" }}
+              className="nav-link"
+            >
               <img
                 className="rounded-circle"
                 style={{
@@ -43,6 +47,7 @@ class Navbar extends Component {
             href="a"
             onClick={this.onLogoutClick.bind(this)}
             className="nav-link"
+            style={{ color: "white", textDecoration: "none" }}
           >
             <img
               className="rounded-circle"
@@ -60,12 +65,20 @@ class Navbar extends Component {
     const guestLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <Link className="nav-link" to="/register">
+          <Link
+            style={{ color: "white", textDecoration: "none" }}
+            className="nav-link"
+            to="/register"
+          >
             Sign Up
           </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/login">
+          <Link
+            style={{ color: "white", textDecoration: "none" }}
+            className="nav-link"
+            to="/login"
+          >
             Login
           </Link>
         </li>
@@ -73,29 +86,13 @@ class Navbar extends Component {
     );
 
     return (
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+      <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-4">
         <div className="container">
           <Link className="navbar-brand" to="/">
             OldVehicleSale
           </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#mobile-nav"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
 
-          <div className="collapse navbar-collapse" id="mobile-nav">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/feed">
-                  {" "}
-                  Vehicles
-                </Link>
-              </li>
-            </ul>
+          <div className="collapse navbar-collapse" id="navbarColor01">
             {isAuthenticated ? authLinks : guestLinks};
           </div>
         </div>

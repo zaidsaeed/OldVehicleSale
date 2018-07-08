@@ -13,6 +13,7 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Posts from "./components/posts/Posts";
 import PostForm from "./components/posts/PostForm";
+import DisplayPostCards from "./components/layout/DisplayPostCards";
 
 //Check for token
 if (localStorage.jwtToken) {
@@ -47,6 +48,7 @@ class App extends Component {
               <Route exact path="/dashboard" component={Posts} />
               <Route exact path="/feed" component={Posts} />
               <Route exact path="/createPost" component={PostForm} />
+              <Route exact path="/searchResults" component={DisplayPostCards} />
             </div>
             <Footer />
           </div>

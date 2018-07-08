@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class Suggestions extends Component {
   render() {
@@ -10,6 +11,9 @@ export default class Suggestions extends Component {
           border: "1px #e9eaeb solid",
           boxShadow: "0 2px 1px 0 rgba(0,0,0,.2)"
         }}
+        onClick={() => {
+          this.props.clearSuggestions();
+        }}
       >
         {r.model}
       </a>
@@ -17,14 +21,21 @@ export default class Suggestions extends Component {
     return options.length === 0 ? (
       <div />
     ) : (
-      <div
-        xPlacement="bottom-start"
-        style={{
-          position: "absolute"
+      <Link
+        to={{
+          pathname: "/searchResults",
+          state: { searchResults: this.props.results }
         }}
       >
-        {options}
-      </div>
+        <div
+          xPlacement="bottom-start"
+          style={{
+            position: "absolute"
+          }}
+        >
+          {options}
+        </div>
+      </Link>
     );
   }
 }
