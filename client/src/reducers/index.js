@@ -9,5 +9,5 @@ import postReducer from "./postReducer";
 export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
-  post: postReducer
+  posts: postReducer
 });
