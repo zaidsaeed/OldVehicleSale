@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Suggestions from "./Suggestions";
-import axios from "axios";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-export default class Search extends Component {
+class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,16 +12,32 @@ export default class Search extends Component {
     };
   }
 
-  handleInputChange = () => {
-    this.setState({ query: this.search.value }, () => this.getModels());
-  };
+  filterModels(keywords, post) {
+    if (
+      post.model.toLowerCase().indexOf(keywords.toLowerCase()) != -1 ||
+      post.description.toLowerCase().indexOf(keywords.toLowerCase()) != -1
+    ) {
+      return post;
+    }
+  }
 
   getModels = () => {
-    const temp = axios
-      .get("api/posts")
-      .then(res => this.setState({ results: res }))
-      .catch(err => console.log(err));
-    console.log(temp);
+    let filteredModels;
+    const { posts } = this.props;
+    if (this.state.query == "") {
+      filteredModels = [];
+    } else {
+      filteredModels = posts.filter(post =>
+        this.filterModels(this.state.query, post)
+      );
+    }
+    this.setState({
+      results: filteredModels
+    });
+  };
+
+  handleInputChange = () => {
+    this.setState({ query: this.search.value }, () => this.getModels());
   };
 
   render() {
@@ -29,7 +46,7 @@ export default class Search extends Component {
         <input
           type="text"
           className="form-control"
-          placeholder="Search based on genre, category, author.."
+          placeholder="Search based on model, price or description ...."
           ref={input => (this.search = input)}
           onChange={this.handleInputChange}
         />
@@ -38,3 +55,16 @@ export default class Search extends Component {
     );
   }
 }
+
+Search.PropTypes = {
+  posts: PropTypes.arrayOf(PropTypes.object)
+};
+
+const mapStateToProps = state => ({
+  posts: state.posts.posts
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(Search);

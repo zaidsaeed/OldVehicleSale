@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import PostForm from "./PostForm";
 import Spinner from "../common/Spinner";
 import Search from "../layout/Search";
 import { getPosts } from "../../actions/postActions";
@@ -31,7 +30,7 @@ Posts.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  posts: state.posts
+  posts: state.posts.posts
 });
 
 export default connect(

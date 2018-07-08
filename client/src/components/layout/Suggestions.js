@@ -11,7 +11,7 @@ export default class Suggestions extends Component {
           boxShadow: "0 2px 1px 0 rgba(0,0,0,.2)"
         }}
       >
-        {r.bookTitle}
+        {r.model}
       </a>
     ));
     return options.length === 0 ? (
