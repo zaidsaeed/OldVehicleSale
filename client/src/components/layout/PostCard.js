@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { addBookmark } from "../../actions/bookmarkActions";
+import { addBookmark, removeBookmark } from "../../actions/bookmarkActions";
 
 class PostCard extends Component {
   bookmark = () => {
     this.props.addBookmark({ post: this.props.model });
+  };
+
+  removeBookmark = () => {
+    this.props.removeBookmark(this.props.model._id);
   };
 
   render() {
@@ -46,7 +50,7 @@ class PostCard extends Component {
               Bookmark
             </button>
           ) : (
-            <button className="btn btn-info" onClick={this.bookmark}>
+            <button className="btn btn-info" onClick={this.removeBookmark}>
               UnBookmark
             </button>
           )}
@@ -62,5 +66,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addBookmark }
+  { addBookmark, removeBookmark }
 )(PostCard);
