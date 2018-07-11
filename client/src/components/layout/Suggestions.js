@@ -9,7 +9,9 @@ export default class Suggestions extends Component {
           display: "block",
           padding: "10px",
           border: "1px #e9eaeb solid",
-          boxShadow: "0 2px 1px 0 rgba(0,0,0,.2)"
+          boxShadow: "0 2px 1px 0 rgba(0,0,0,.2)",
+          zIndex: "10",
+          backgroundColor: "#ffffff"
         }}
         onClick={() => {
           this.props.clearSuggestions();
