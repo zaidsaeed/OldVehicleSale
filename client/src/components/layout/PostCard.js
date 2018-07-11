@@ -26,7 +26,10 @@ class PostCard extends Component {
       inBookmarks = true;
     }
     return (
-      <div className="card bg-light mb-3" style={{ maxWidth: "20rem" }}>
+      <div
+        className="card bg-light mb-3"
+        style={{ maxWidth: "20rem", zIndex: "-1" }}
+      >
         <Link
           to={{
             pathname: "/post",
