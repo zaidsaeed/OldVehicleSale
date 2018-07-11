@@ -1,24 +1,66 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { addBookmark } from "../../actions/bookmarkActions";
 
-export default class PostCard extends Component {
+class PostCard extends Component {
+  bookmark = () => {
+    this.props.addBookmark({ post: this.props.model });
+  };
+
   render() {
-    const { model } = this.props;
+    const { model, bookmarks } = this.props;
+    const bookmarked = bookmarks.filter(bookmark => {
+      if (bookmark.post === model._id) {
+        return true;
+      }
+    });
+    let inBookmarks;
+    if (bookmarked.length === 0) {
+      inBookmarks = false;
+    } else {
+      inBookmarks = true;
+    }
     return (
-      <Link
-        to={{
-          pathname: "/post",
-          state: { post: model }
-        }}
-      >
-        <div className="card bg-light mb-3" style={{ maxWidth: "20rem" }}>
-          <div className="card-header">{model.model}</div>
-          <div className="card-body">
+      <div className="card bg-light mb-3" style={{ maxWidth: "20rem" }}>
+        <Link
+          to={{
+            pathname: "/post",
+            state: { post: model }
+          }}
+        >
+          <div className="card-header">{model.model}</div>{" "}
+        </Link>
+
+        <div className="card-body">
+          <Link
+            to={{
+              pathname: "/post",
+              state: { post: model }
+            }}
+          >
             <img src={model.imageURL} />
-            <p className="card-text">{model.description}</p>
-          </div>
+          </Link>
+          {inBookmarks === false ? (
+            <button className="btn btn-info" onClick={this.bookmark}>
+              Bookmark
+            </button>
+          ) : (
+            <button className="btn btn-info" onClick={this.bookmark}>
+              UnBookmark
+            </button>
+          )}
         </div>
-      </Link>
+      </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  bookmarks: state.bookmarks.bookmarks
+});
+
+export default connect(
+  mapStateToProps,
+  { addBookmark }
+)(PostCard);
