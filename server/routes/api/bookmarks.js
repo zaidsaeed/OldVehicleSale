@@ -61,10 +61,7 @@ router.delete(
               .json({ notauthorized: "User not authorized" });
           }
           //removing post from user array
-          console.log("req.params", req.params);
           req.user.bookmarks = req.user.bookmarks.filter(bookmark => {
-            console.log("bookmark", bookmark);
-            console.log("truth", bookmark != req.params.id);
             if (bookmark != req.params.id) return bookmark;
           });
           req.user.save();

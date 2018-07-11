@@ -6,8 +6,11 @@ import errorReducer from "./errorReducer";
 
 import postReducer from "./postReducer";
 
+import bookmarkReducer from "./bookmarkReducer";
+
 export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
-  posts: postReducer
+  posts: postReducer,
+  bookmarks: bookmarkReducer
 });

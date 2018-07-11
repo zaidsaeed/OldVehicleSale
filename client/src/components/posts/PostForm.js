@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPost } from "../../actions/postActions";
-import axios from "axios";
 
 class PostForm extends Component {
   constructor(props) {
