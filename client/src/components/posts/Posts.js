@@ -2,20 +2,36 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../common/Spinner";
-import Search from "../layout/Search";
 import { getPosts } from "../../actions/postActions";
+import Search from "../layout/Search";
+import PostCard from "../layout/PostCard";
 
 class Posts extends Component {
   componentDidMount() {
     this.props.getPosts();
   }
+
   render() {
+    const postContent = this.props.post.map(result => {
+      return <PostCard model={result} />;
+    });
     return (
       <div className="feed">
         <div className="container">
           <div className="row">
             <div className="col-md-12">
               <Search />
+              <br />
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "auto auto auto auto auto",
+                  marginLeft: "40px",
+                  marginRight: "40px"
+                }}
+              >
+                {postContent}
+              </div>
             </div>
           </div>
         </div>
@@ -26,11 +42,11 @@ class Posts extends Component {
 
 Posts.propTypes = {
   getPosts: PropTypes.func.isRequired,
-  posts: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  posts: state.posts.posts
+  post: state.posts.posts
 });
 
 export default connect(
