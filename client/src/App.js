@@ -17,6 +17,7 @@ import DisplayPostCards from "./components/layout/DisplayPostCards";
 import PostPage from "./components/posts/PostPage";
 import Dashboard from './components/dashboard/Dashboard';
 import {clearCurrentProfile} from "./actions/profileActions";
+import CreateProfile from './components/create-profile/CreateProfile';
 //Check for token
 if (localStorage.jwtToken) {
   //Set auth token header auth
@@ -52,6 +53,7 @@ class App extends Component {
               <Route exact path="/searchResults" component={DisplayPostCards} />
               <Route exact path="/post" component={PostPage} />
                 <Route exact path="/dashboard" component={Dashboard} />
+              <Route exact path="/create-profile" component={CreateProfile} />
             </div>
             <Footer />
           </div>
