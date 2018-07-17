@@ -15,6 +15,8 @@ import Posts from "./components/posts/Posts";
 import PostForm from "./components/posts/PostForm";
 import DisplayPostCards from "./components/layout/DisplayPostCards";
 import PostPage from "./components/posts/PostPage";
+import Dashboard from './components/dashboard/Dashboard';
+import {clearCurrentProfile} from "./actions/profileActions";
 //Check for token
 if (localStorage.jwtToken) {
   //Set auth token header auth
@@ -28,7 +30,7 @@ if (localStorage.jwtToken) {
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
     store.dispatch(logoutUser());
-    //TODO: Clear current profile
+    store.dispatch(clearCurrentProfile());
     //Redirect to login
     window.location.href = "./login";
   }
@@ -49,6 +51,7 @@ class App extends Component {
               <Route exact path="/createPost" component={PostForm} />
               <Route exact path="/searchResults" component={DisplayPostCards} />
               <Route exact path="/post" component={PostPage} />
+                <Route exact path="/dashboard" component={Dashboard} />
             </div>
             <Footer />
           </div>
