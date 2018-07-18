@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
+
+import PrivateRoute from './components/common/PrivateRoute';
+
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
@@ -18,6 +21,7 @@ import PostPage from "./components/posts/PostPage";
 import Dashboard from './components/dashboard/Dashboard';
 import {clearCurrentProfile} from "./actions/profileActions";
 import CreateProfile from './components/create-profile/CreateProfile';
+import EditProfile from "./components/edit-profile/EditProfile";
 //Check for token
 if (localStorage.jwtToken) {
   //Set auth token header auth
@@ -48,12 +52,19 @@ class App extends Component {
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              <Switch>
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              </Switch>
               <Route exact path="/dashboard" component={Posts} />
               <Route exact path="/createPost" component={PostForm} />
               <Route exact path="/searchResults" component={DisplayPostCards} />
               <Route exact path="/post" component={PostPage} />
-                <Route exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/create-profile" component={CreateProfile} />
+              <Switch>
+                <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+              </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+                </Switch>
             </div>
             <Footer />
           </div>

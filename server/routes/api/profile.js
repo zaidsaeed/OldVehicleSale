@@ -103,7 +103,7 @@ router.post('/',
     (req, res) => {
         // Get fields
         const profileFields = {} ;
-        profileFields.user = request.user.id ;
+        profileFields.user = req.user.id ;
         if(req.body.handle) profileFields.handle = req.body.handle;
         if(req.body.company) profileFields.company = req.body.company;
         if(req.body.location) profileFields.location = req.body.location;
