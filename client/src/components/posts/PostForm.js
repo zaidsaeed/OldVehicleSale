@@ -7,10 +7,15 @@ class PostForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      carModel: "",
-      imageURL: "",
-      description: "",
-      erros: {}
+        carModel: '',
+        imageURL: '',
+        description: '',
+        handle: '',
+        name: '',
+        price: '',
+        errors: {}
+
+
     };
 
     this.onChange = this.onChange.bind(this);
@@ -23,19 +28,26 @@ class PostForm extends Component {
     }
   }
 
-  onSubmit() {
+  onSubmit(e) {
+    e.preventDefault();
     const { user } = this.props.auth;
+    const {profile} = this.props.profile;
+
     console.log(user);
-    const { carModel, imageURL, description } = this.state;
+    const { carModel, imageURL, description, price, transmission, mileage } = this.state;
 
     const newPost = {
-      description: description,
-      model: carModel,
-      imageURL: imageURL,
-      user: user
+        handle: profile.handle,
+        name: user.name,
+        model: carModel,
+        description: description,
+        imageURL: imageURL,
+        user: user,
+        price: price,
     };
 
     this.props.addPost(newPost);
+    window.location = '/dashboard' ;
   }
 
   onChange(e) {
@@ -44,6 +56,7 @@ class PostForm extends Component {
 
   render() {
     return (
+        <form onSubmit={this.onSubmit}>
       <div className="post-form mb-3">
         <div className="card card-info">
           <div className="card-header bg-info text-white">
@@ -58,28 +71,29 @@ class PostForm extends Component {
                 onChange={e => this.onChange(e)}
               />
               <input
-                class="form-control form-control-lg"
+                class="form-control form-control-lg mt-3"
                 placeholder="Car Image Url"
                 name="imageURL"
                 onChange={e => this.onChange(e)}
               />
+                <input className={"form-control form-control-lg mt-3"} type={"number"} placeholder={"Price ($)"} name={"price"} onChange={e => this.onChange(e)}/>
+
               <textarea
-                className="form-control form-control-lg"
-                placeholder="Model Description"
+                className="form-control form-control-lg mt-3"
+                placeholder="Description"
                 name="description"
                 onChange={e => this.onChange(e)}
               />
             </div>
-            <button
-              type="submit"
+            <input
+              type={"submit"}
               className="btn btn-dark"
-              onClick={() => this.onSubmit()}
-            >
-              Submit
-            </button>
+              value={"Submit"}
+            />
           </div>
         </div>
       </div>
+        </form>
     );
   }
 }
@@ -87,12 +101,14 @@ class PostForm extends Component {
 PostForm.propTypes = {
   addPost: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  erros: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+    profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  erros: state.errors,
-  auth: state.auth
+  errors: state.errors,
+  auth: state.auth,
+    profile: state.profile
 });
 
 export default connect(

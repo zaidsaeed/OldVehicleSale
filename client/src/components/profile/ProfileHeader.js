@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import isEmpty from "../../validation/is-empty";
+import ProfileActions from "../dashboard/ProfileActions";
 
 class ProfileHeader extends Component {
     render() {
@@ -19,6 +20,7 @@ class ProfileHeader extends Component {
                             <h1 className={"display-4 text-center"}>{profile.user.name}</h1>
                             <p className={"lead text-center"}>{isEmpty(profile.company) ? null : (<span>{profile.company}</span>)}</p>
                             <p>{profile.location}</p>
+                            <ProfileActions />
                         </div>
                     </div>
                 </div>

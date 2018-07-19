@@ -56,7 +56,10 @@ router.post(
       description: req.body.description,
       model: req.body.model,
       imageURL: req.body.imageURL,
-      user: req.user.id
+      user: req.user.id,
+        name: req.body.name,
+        handle: req.body.handle,
+        price: req.body.price
     });
 
     newPost.save().then(post => res.json(post));

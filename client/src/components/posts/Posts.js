@@ -12,9 +12,19 @@ class Posts extends Component {
   }
 
   render() {
-    const postContent = this.props.post.map(result => {
-      return <PostCard model={result} />;
-    });
+    const {post, loading} = this.props.post;
+
+    let postContent;
+
+    if (post === null || loading) {
+      postContent = <Spinner/>
+    } else {
+      postContent = this.props.post.map(result => {
+        return <PostCard model={result} /> });
+    }
+
+
+
     return (
       <div className="feed">
         <div className="container">
@@ -22,16 +32,12 @@ class Posts extends Component {
             <div className="col-md-12">
               <Search />
               <br />
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "auto auto auto auto auto",
-                  marginLeft: "40px",
-                  marginRight: "40px"
-                }}
-              >
-                {postContent}
-              </div>
+                <div className={"row"}>
+                    <div className={"col-md-12"}>
+                        {postContent}
+                    </div>
+                </div>
+
             </div>
           </div>
         </div>

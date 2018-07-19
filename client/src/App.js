@@ -59,7 +59,9 @@ class App extends Component {
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>
               <Route exact path="/dashboard" component={Posts} />
-              <Route exact path="/createPost" component={PostForm} />
+              <Switch>
+                <PrivateRoute exact path="/createPost" component={PostForm} />
+              </Switch>
               <Route exact path="/searchResults" component={DisplayPostCards} />
               <Route exact path="/post" component={PostPage} />
               <Switch>

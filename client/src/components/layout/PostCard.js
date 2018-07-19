@@ -14,7 +14,7 @@ class PostCard extends Component {
   };
 
   render() {
-    const { model, bookmarks, profile } = this.props;
+    const { model, bookmarks, profile, post, auth, user } = this.props;
     const bookmarked = bookmarks.filter(bookmark => {
       if (bookmark.post === model._id) {
         return true;
@@ -29,9 +29,8 @@ class PostCard extends Component {
     return (
       <div
         className="card bg-light mb-3"
-        style={{ maxWidth: "20rem"}}
       >
-        <Link
+          <Link
           to={{
             pathname: "/post",
             state: { post: model }
@@ -41,24 +40,34 @@ class PostCard extends Component {
         </Link>
 
         <div className="card-body">
-          <Link
-            to={{
-              pathname: "/post",
-              state: { post: model }
-            }}
-          >
-            <img src={model.imageURL} />
-          </Link>
-          {inBookmarks === false ? (
-            <button className="btn btn-info" onClick={this.bookmark}>
-              Bookmark
-            </button>
-          ) : (
-            <button className="btn btn-info" onClick={this.removeBookmark}>
-              UnBookmark
-            </button>
-          )}
-            <Link to={`/profile/${profile.handle}`} className={"btn btn-info"}> View Profile </Link>
+            <div className={"row"}>
+              <div className={"col-md-4"}>
+                <Link
+                  to={{
+                    pathname: "/post",
+                    state: { post: model }
+                  }}
+                >
+                  <img src={model.imageURL} />
+                </Link>
+              </div>
+              <div className={"col-md-8"}>
+                  <p><span className={"lead text-muted"}>Price: </span>${model.price}</p>
+                  <p><span className={"lead text-muted"}>Description: </span>{model.description}</p>
+              </div>
+              <div className={"col-md-12"}>
+                {inBookmarks === false ? (
+                  <button className="btn btn-info float-right" onClick={this.bookmark}>
+                    Bookmark
+                  </button>
+                ) : (
+                  <button className="btn btn-info float-right" onClick={this.removeBookmark}>
+                    UnBookmark
+                  </button>
+                )}
+                <p className="lead text-muted">Post by: <Link to={`/profile/${model.handle}`}>{model.name}</Link></p>
+              </div>
+            </div>
         </div>
       </div>
     );
@@ -66,15 +75,16 @@ class PostCard extends Component {
 }
 
 PostCard.propTypes = {
-    profile: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
+    auth: state.auth,
   bookmarks: state.bookmarks.bookmarks,
-    profile: state.profile
 });
 
 export default connect(
   mapStateToProps,
-  { addBookmark, removeBookmark }
+  { addBookmark, removeBookmark, }
 )(PostCard);

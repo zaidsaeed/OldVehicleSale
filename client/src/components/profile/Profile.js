@@ -6,6 +6,7 @@ import ProfileHeader from './ProfileHeader';
 import ProfileAbout from './ProfileAbout';
 import Spinner from '../common/Spinner';
 import {getProfileByHandle} from '../../actions/profileActions';
+import ProfileActions from "../dashboard/ProfileActions";
 
 class Profile extends Component {
     componentDidMount() {
@@ -23,10 +24,11 @@ class Profile extends Component {
             profileContent = (
                 <div>
                     <div className={"row"}>
-                        <div className={"col-md-6"}>
+                        <div className={"col-md-12"}>
                             <Link to={"../dashboard"} className={"btn btn-light mb-3 float-left"}>
                                 Back To Dashboard
                             </Link>
+
                         </div>
                         <div className={"col-md-6"} />
                     </div>
