@@ -29,21 +29,21 @@ export const addPost = postData => dispatch => {
 
 //Get Posts
 export const getPosts = () => dispatch => {
-  dispatch(setPostLoading());
-  axios
-    .get("/api/posts")
-    .then(res =>
-      dispatch({
-        type: GET_POSTS,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_POSTS,
-        payload: null
-      })
-    );
+    dispatch(setPostLoading());
+    axios
+        .get("/api/posts")
+        .then(res =>
+            dispatch({
+                type: GET_POSTS,
+                payload: res.data
+            })
+        )
+        .catch(err =>
+            dispatch({
+                type: GET_POSTS,
+                payload: null
+            })
+        );
 };
 
 // Get post by handle

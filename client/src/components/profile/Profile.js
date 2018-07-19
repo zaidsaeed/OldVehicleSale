@@ -20,7 +20,12 @@ class Profile extends Component {
     }
     render() {
         const {profile, loading, post} = this.props.profile;
+
+        const {user} = this.props.auth;
+
         let profileContent;
+        let profileFeed;
+        let postContent;
 
         if(profile === null || loading) {
             profileContent = <Spinner/>
@@ -40,17 +45,23 @@ class Profile extends Component {
 
                 </div>
             )
+
+            if (post === null || loading) {
+                postContent = <Spinner/>
+            } else {
+                postContent = this.props.post.map(result => {
+                    return <PostCard model={result} /> });
+            }
+
+            if (user.id === profile.user._id) {
+                profileFeed = <h3 className={"text-muted mt-3"}>Your Posts</h3> ;
+            } else {
+                profileFeed = <h3 className={"text-muted mt-3"}>{profile.user.name}'s Posts</h3> ;
+            }
         }
 
 
-        let postContent;
 
-        if (post === null || loading) {
-            postContent = <Spinner/>
-        } else {
-            postContent = this.props.post.map(result => {
-                return <PostCard model={result} /> });
-        }
 
 
 
@@ -60,8 +71,9 @@ class Profile extends Component {
                     <div className={"row"}>
                         <div className={"col-md-12"}>
                             {profileContent}
+                            {profileFeed}
+                            <hr/>
                             {postContent}
-
                         </div>
                     </div>
                 </div>
@@ -75,12 +87,14 @@ Profile.propTypes = {
     getProfileByHandle: PropTypes.func.isRequired,
     getPostsByHandle: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired,
-    post: PropTypes.object.isRequired
+    post: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
     profile: state.profile,
-    post: state.posts.posts
+    post: state.posts.posts,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, {getProfileByHandle, getPostsByHandle, getPosts})(Profile);
