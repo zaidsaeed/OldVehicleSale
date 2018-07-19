@@ -32,7 +32,7 @@ class Dashboard extends Component {
                         <p className="lead text-muted">Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link></p>
                         <ProfileActions />
                         <div style={{ marginBottom: '60px' }} />
-                        <button onClick={this.onDeleteClick.bind(this)} className={"btn btn-danger"}>Delete Account</button>
+
                     </div>
                 )
             } else {

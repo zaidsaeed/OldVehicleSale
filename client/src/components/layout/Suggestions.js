@@ -10,7 +10,7 @@ export default class Suggestions extends Component {
           padding: "10px",
           border: "1px #e9eaeb solid",
           boxShadow: "0 2px 1px 0 rgba(0,0,0,.2)",
-          zIndex: "10",
+
           backgroundColor: "#ffffff"
         }}
         onClick={() => {
@@ -32,7 +32,8 @@ export default class Suggestions extends Component {
         <div
           xPlacement="bottom-start"
           style={{
-            position: "absolute"
+            position: "absolute",
+              zIndex: "1"
           }}
         >
           {options}

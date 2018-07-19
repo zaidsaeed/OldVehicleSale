@@ -29,7 +29,7 @@ class PostCard extends Component {
     return (
       <div
         className="card bg-light mb-3"
-        style={{ maxWidth: "20rem", zIndex: "-1" }}
+        style={{ maxWidth: "20rem"}}
       >
         <Link
           to={{
