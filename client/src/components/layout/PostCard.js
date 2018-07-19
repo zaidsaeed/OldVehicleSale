@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { addBookmark, removeBookmark } from "../../actions/bookmarkActions";
+import PropTypes from 'prop-types';
 
 class PostCard extends Component {
   bookmark = () => {
@@ -13,7 +14,7 @@ class PostCard extends Component {
   };
 
   render() {
-    const { model, bookmarks } = this.props;
+    const { model, bookmarks, profile } = this.props;
     const bookmarked = bookmarks.filter(bookmark => {
       if (bookmark.post === model._id) {
         return true;
@@ -57,14 +58,20 @@ class PostCard extends Component {
               UnBookmark
             </button>
           )}
+            <Link to={`/profile/${profile.handle}`} className={"btn btn-info"}> View Profile </Link>
         </div>
       </div>
     );
   }
 }
 
+PostCard.propTypes = {
+    profile: PropTypes.object.isRequired
+}
+
 const mapStateToProps = state => ({
-  bookmarks: state.bookmarks.bookmarks
+  bookmarks: state.bookmarks.bookmarks,
+    profile: state.profile
 });
 
 export default connect(
