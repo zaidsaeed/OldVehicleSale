@@ -27,6 +27,8 @@ router.get("/", (req, res) => {
     .catch(err => res.status(404).json({ nopostfound: "No Posts found" }));
 });
 
+
+
 //@route GET api/posts/:id
 //@desc Get posts by id
 //@access Public
@@ -37,6 +39,19 @@ router.get("/:id", (req, res) => {
       res.status(404).json({ nopostfound: "No Post found with that ID" })
     );
 });
+
+//@route GET api/posts/handle/:handle
+//@desc Get profile by handle
+//@access Public
+router.get('/handle/:handle', (req, res) => {
+    const errors= {};
+
+    Post.find({ handle: req.params.handle })
+        .sort({date: -1})
+        .then(posts => res.json(posts))
+        .catch(err => res.status(404).json({ nopostfound: "No Posts found" }));
+} );
+
 
 //@route POST api/posts/
 //@desc Create post
@@ -88,5 +103,7 @@ router.delete(
     });
   }
 );
+
+
 
 module.exports = router;

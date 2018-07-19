@@ -14,7 +14,7 @@ class PostCard extends Component {
   };
 
   render() {
-    const { model, bookmarks, profile, post, auth, user } = this.props;
+    const { model, bookmarks} = this.props;
     const bookmarked = bookmarks.filter(bookmark => {
       if (bookmark.post === model._id) {
         return true;

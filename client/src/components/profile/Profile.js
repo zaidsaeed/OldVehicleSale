@@ -3,19 +3,23 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import ProfileHeader from './ProfileHeader';
-import ProfileAbout from './ProfileAbout';
+import PostCard from '../layout/PostCard';
 import Spinner from '../common/Spinner';
 import {getProfileByHandle} from '../../actions/profileActions';
+import {getPostsByHandle, getPosts} from "../../actions/postActions";
 import ProfileActions from "../dashboard/ProfileActions";
 
 class Profile extends Component {
     componentDidMount() {
         if(this.props.match.params.handle) {
             this.props.getProfileByHandle(this.props.match.params.handle);
+
         }
+        //this.props.getPosts();
+        this.props.getPostsByHandle(this.props.match.params.handle);
     }
     render() {
-        const {profile, loading} = this.props.profile;
+        const {profile, loading, post} = this.props.profile;
         let profileContent;
 
         if(profile === null || loading) {
@@ -33,10 +37,21 @@ class Profile extends Component {
                         <div className={"col-md-6"} />
                     </div>
                     <ProfileHeader profile={profile}/>
-                    <ProfileAbout />
+
                 </div>
             )
         }
+
+
+        let postContent;
+
+        if (post === null || loading) {
+            postContent = <Spinner/>
+        } else {
+            postContent = this.props.post.map(result => {
+                return <PostCard model={result} /> });
+        }
+
 
 
         return (
@@ -45,6 +60,8 @@ class Profile extends Component {
                     <div className={"row"}>
                         <div className={"col-md-12"}>
                             {profileContent}
+                            {postContent}
+
                         </div>
                     </div>
                 </div>
@@ -56,11 +73,14 @@ class Profile extends Component {
 
 Profile.propTypes = {
     getProfileByHandle: PropTypes.func.isRequired,
-    profile: PropTypes.object.isRequired
+    getPostsByHandle: PropTypes.func.isRequired,
+    profile: PropTypes.object.isRequired,
+    post: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    profile: state.profile
+    profile: state.profile,
+    post: state.posts.posts
 });
 
-export default connect(mapStateToProps, {getProfileByHandle})(Profile);
+export default connect(mapStateToProps, {getProfileByHandle, getPostsByHandle, getPosts})(Profile);

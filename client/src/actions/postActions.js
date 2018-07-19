@@ -1,12 +1,13 @@
 import axios from "axios";
 
 import {
-  ADD_POST,
-  GET_ERRORS,
-  POST_LOADING,
-  GET_POSTS,
-  DELETE_POST
+    ADD_POST,
+    GET_ERRORS,
+    POST_LOADING,
+    GET_POSTS,
+    DELETE_POST, GET_PROFILE
 } from "./types";
+import {setProfileLoading} from "./profileActions";
 
 //Add Post
 export const addPost = postData => dispatch => {
@@ -43,6 +44,25 @@ export const getPosts = () => dispatch => {
         payload: null
       })
     );
+};
+
+// Get post by handle
+export const getPostsByHandle = (handle) => dispatch => {
+    dispatch(setPostLoading());
+    axios
+        .get(`/api/posts/handle/${handle}`)
+        .then(res =>
+            dispatch({
+                type: GET_POSTS,
+                payload: res.data
+            })
+        )
+        .catch(err =>
+            dispatch({
+                type: GET_POSTS,
+                payload: "Hi"
+            })
+        );
 };
 
 export const deletePost = id => dispatch => {
