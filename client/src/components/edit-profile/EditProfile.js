@@ -13,11 +13,10 @@ class CreateProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            displaySocialInputs: false,
             handle: '',
-            company: '',
             location: '',
-            bio: '',
+            email: '',
+            phone: '',
             errors: {}
         };
 
@@ -37,13 +36,13 @@ class CreateProfile extends Component {
         if(nextProps.profile.profile) {
             const profile = nextProps.profile.profile;
 
-            profile.company = !isEmpty(profile.company) ? profile.company : '';
             profile.location = !isEmpty(profile.location) ? profile.location : '';
 
             this.setState({
                 handle: profile.handle,
-                company: profile.company,
-                location: profile.location
+                location: profile.location,
+                email: profile.email,
+                phone: profile.phone
             });
         }
     }
@@ -53,8 +52,9 @@ class CreateProfile extends Component {
 
         const profileData = {
             handle: this.state.handle,
-            company: this.state.company,
-            location: this.state.location
+            location: this.state.location,
+            email: this.state.email,
+            phone: this.state.phone
         }
 
         this.props.createProfile(profileData, this.props.history);
@@ -85,20 +85,28 @@ class CreateProfile extends Component {
                                     info={"A unique handle for your profile URL."}
                                 />
                                 <TextFieldGroup
-                                    placeholder={"Company"}
-                                    name={"company"}
-                                    value={this.state.company}
-                                    onChange={this.onChange}
-                                    error={errors.company}
-                                    info={"Selling for a company (optional)"}
-                                />
-                                <TextFieldGroup
                                     placeholder={"Location"}
                                     name={"location"}
                                     value={this.state.location}
                                     onChange={this.onChange}
                                     error={errors.location}
                                     info={"Your location."}
+                                />
+                                <TextFieldGroup
+                                    placeholder={"Email Address"}
+                                    name={"email"}
+                                    value={this.state.email}
+                                    onChange={this.onChange}
+                                    error={errors.email}
+                                    info={"Your email address."}
+                                />
+                                <TextFieldGroup
+                                    placeholder={"Phone Number"}
+                                    name={"phone"}
+                                    value={this.state.phone}
+                                    onChange={this.onChange}
+                                    error={errors.phone}
+                                    info={"Your phone number."}
                                 />
                                 <input type={"submit"} value={"Submit"} className={"btn btn-info btn-block mt-4"}/>
 

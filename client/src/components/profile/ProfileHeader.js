@@ -18,8 +18,9 @@ class ProfileHeader extends Component {
                         </div>
                         <div className={"text-center"}>
                             <h1 className={"display-4 text-center"}>{profile.user.name}</h1>
-                            <p className={"lead text-center"}>{isEmpty(profile.company) ? null : (<span>{profile.company}</span>)}</p>
-                            <p>{profile.location}</p>
+                            <p className={"mb-1"}><i class="fa fa-fw fa-map-marker-alt"></i> {profile.location}</p>
+                            <p className={"mb-1"}><i class="fa fa-fw fa-envelope"></i> {profile.email}</p>
+                            <p className={"mb-0"}><i class="fa fa-fw fa-phone"></i> {profile.phone}</p>
                             <ProfileActions />
                         </div>
                     </div>

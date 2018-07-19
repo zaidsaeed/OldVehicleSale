@@ -12,16 +12,17 @@ const ProfileSchema = new Schema({
         required: true,
         max: 40
     },
-    company: {
-        type: String
-    },
     location: {
         type: String,
         required: true
     },
-    posts: {
-        type: Schema.Types.ObjectId,
-        ref: 'post'
+    email: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
     }
 
 
