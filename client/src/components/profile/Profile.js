@@ -19,7 +19,8 @@ class Profile extends Component {
         this.props.getPostsByHandle(this.props.match.params.handle);
     }
     render() {
-        const {profile, loading, post} = this.props.profile;
+        const {profile, loading} = this.props.profile;
+        const {post} = this.props.post;
 
         const {user} = this.props.auth;
 

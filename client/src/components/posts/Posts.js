@@ -5,6 +5,8 @@ import Spinner from "../common/Spinner";
 import { getPosts } from "../../actions/postActions";
 import Search from "../layout/Search";
 import PostCard from "../layout/PostCard";
+import SearchMenu from "../layout/SearchMenu";
+
 
 class Posts extends Component {
     componentDidMount() {
@@ -15,14 +17,14 @@ class Posts extends Component {
         const {post, loading} = this.props.post;
 
         let postContent;
+        let searchMenu;
 
         if (post === null || loading) {
-            postContent = <Spinner/>
+            postContent = <Spinner/>;
         } else {
             postContent = this.props.post.map(result => {
                 return <PostCard model={result} /> });
         }
-
 
 
         return (
@@ -33,9 +35,13 @@ class Posts extends Component {
                             <Search />
                             <br />
                             <div className={"row"}>
-                                <div className={"col-md-12"}>
+                                <div className={"col-md-3"}>
+                                    <SearchMenu />
+                                </div>
+                                <div className={"col-md-9"}>
                                     {postContent}
                                 </div>
+
                             </div>
 
                         </div>

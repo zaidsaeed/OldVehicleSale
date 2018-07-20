@@ -32,7 +32,10 @@ const PostSchema = new Schema({
   price: {
     type: Number,
       required: true
-  }
+  },
+    priceRange: {
+      type: Number
+    }
 });
 
 module.exports = Post = mongoose.model("post", PostSchema);

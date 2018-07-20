@@ -13,6 +13,7 @@ class PostForm extends Component {
         handle: '',
         name: '',
         price: '',
+        priceRange: '',
         errors: {}
 
 
@@ -36,6 +37,11 @@ class PostForm extends Component {
     console.log(user);
     const { carModel, imageURL, description, price, transmission, mileage } = this.state;
 
+    if(price<=2500) this.priceRange = 0;
+    else if(price<=5000) this.priceRange = 1;
+    else this.priceRange = 2;
+
+
     const newPost = {
         handle: profile.handle,
         name: user.name,
@@ -44,6 +50,7 @@ class PostForm extends Component {
         imageURL: imageURL,
         user: user,
         price: price,
+        priceRange: this.priceRange
     };
 
     this.props.addPost(newPost);

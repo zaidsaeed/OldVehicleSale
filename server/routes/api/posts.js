@@ -41,12 +41,24 @@ router.get("/:id", (req, res) => {
 });
 
 //@route GET api/posts/handle/:handle
-//@desc Get profile by handle
+//@desc Get posts by handle
 //@access Public
 router.get('/handle/:handle', (req, res) => {
     const errors= {};
 
     Post.find({ handle: req.params.handle })
+        .sort({date: -1})
+        .then(posts => res.json(posts))
+        .catch(err => res.status(404).json({ nopostfound: "No Posts found" }));
+} );
+
+//@route GET api/posts/handle/:handle
+//@desc Get posts by price
+//@access Public
+router.get('/priceRange/:priceRange', (req, res) => {
+    const errors= {};
+
+    Post.find({ price: req.params.price })
         .sort({date: -1})
         .then(posts => res.json(posts))
         .catch(err => res.status(404).json({ nopostfound: "No Posts found" }));
@@ -74,7 +86,8 @@ router.post(
       user: req.user.id,
         name: req.body.name,
         handle: req.body.handle,
-        price: req.body.price
+        price: req.body.price,
+        priceRange: req.body.priceRange
     });
 
     newPost.save().then(post => res.json(post));

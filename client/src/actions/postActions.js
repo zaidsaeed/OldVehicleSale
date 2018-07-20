@@ -60,7 +60,26 @@ export const getPostsByHandle = (handle) => dispatch => {
         .catch(err =>
             dispatch({
                 type: GET_POSTS,
-                payload: "Hi"
+                payload: null
+            })
+        );
+};
+
+// Get post by price
+export const getPostsByPrice = (priceRange) => dispatch => {
+    dispatch(setPostLoading());
+    axios
+        .get(`/api/posts/priceRange/${priceRange}`)
+        .then(res =>
+            dispatch({
+                type: GET_POSTS,
+                payload: res.data
+            })
+        )
+        .catch(err =>
+            dispatch({
+                type: GET_POSTS,
+                payload: null
             })
         );
 };
