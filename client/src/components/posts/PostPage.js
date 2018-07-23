@@ -30,14 +30,6 @@ class PostPage extends Component {
           <p>
             Poster: {post.name}, {post.email}
           </p>
-          <button
-            type="button"
-            className="btn btn-info"
-            style={{ width: "150px" }}
-          >
-            Contact Poster
-          </button>
-          <p>Posted at: {post.date} </p>
         </div>
       </div>
     );

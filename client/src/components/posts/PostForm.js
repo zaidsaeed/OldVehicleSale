@@ -49,7 +49,7 @@ class PostForm extends Component {
     else this.priceRange = 2;
 
     const newPost = {
-      //handle: profile.handle,
+      handle: profile.handle,
       email: user.email,
       name: user.name,
       model: carModel,
