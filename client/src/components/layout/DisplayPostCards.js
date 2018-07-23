@@ -13,16 +13,7 @@ export default class DisplayPostCards extends Component {
       <div>
         <Search />
         <br />
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "auto auto auto auto auto",
-            marginLeft: "40px",
-            marginRight: "40px"
-          }}
-        >
-          {cards}
-        </div>
+        <div>{cards}</div>
       </div>
     );
   }

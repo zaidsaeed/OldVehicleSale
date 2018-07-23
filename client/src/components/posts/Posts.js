@@ -38,10 +38,10 @@ class Posts extends Component {
               <Search />
               <br />
               <div className={"row"}>
-                <div className={"col-md-3"}>
+                {/* <div className={"col-md-3"}>
                   <SearchMenu />
-                </div>
-                <div className={"col-md-9"}>{postContent}</div>
+                </div> */}
+                <div className={"col-md-12"}>{postContent}</div>
               </div>
             </div>
           </div>
