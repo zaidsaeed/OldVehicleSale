@@ -16,9 +16,17 @@ class PostCard extends Component {
     this.props.getUserFromDB();
   };
 
+  getBookmarkFromBookmarkId(bookmarkId) {
+    const { userBookmarks } = this.props;
+    return userBookmarks.find(bookmark => bookmark === bookmarkId);
+  }
+
   render() {
-    const { model, bookmarks } = this.props;
-    const bookmarked = bookmarks.filter(bookmark => {
+    const { model, userBookmarks, bookmarks } = this.props;
+    const actualBookmarks = bookmarks.filter(bookmark =>
+      this.getBookmarkFromBookmarkId(bookmark._id)
+    );
+    const bookmarked = actualBookmarks.filter(bookmark => {
       if (bookmark.post === model._id) {
         return true;
       }
@@ -96,6 +104,7 @@ PostCard.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  userBookmarks: state.auth.user.bookmarks,
   bookmarks: state.bookmarks.bookmarks
 });
 

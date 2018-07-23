@@ -12,12 +12,17 @@ class UserBookmarks extends Component {
     return posts.find(post => post._id === postId);
   }
 
+  getBookmarkFromBookmarkId(bookmarkId) {
+    const { userBookmarks } = this.props;
+    return userBookmarks.find(bookmark => bookmark === bookmarkId);
+  }
+
   render() {
-    const { posts, bookmarks, userId } = this.props;
-    const userBookmarks = bookmarks.filter(
-      bookmark => bookmark.user === userId
+    const { bookmarks, userId, userBookmarks } = this.props;
+    const actualBookmarks = bookmarks.filter(bookmark =>
+      this.getBookmarkFromBookmarkId(bookmark._id)
     );
-    const postsFromBookmarks = userBookmarks.map(bookmark =>
+    const postsFromBookmarks = actualBookmarks.map(bookmark =>
       this.getPostFromBookmark(bookmark.post)
     );
     const postCards = postsFromBookmarks.map(post => {
@@ -36,7 +41,8 @@ class UserBookmarks extends Component {
 const mapStateToProps = state => ({
   posts: state.posts.posts,
   bookmarks: state.bookmarks.bookmarks,
-  userId: state.auth.user._id
+  userId: state.auth.user._id,
+  userBookmarks: state.auth.user.bookmarks
 });
 
 export default connect(
