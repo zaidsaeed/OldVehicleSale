@@ -1,4 +1,4 @@
-import { ADD_BOOKMARK, DELETE_BOOKMARK } from "../actions/types";
+import { ADD_BOOKMARK, DELETE_BOOKMARK, GET_BOOKMARKS } from "../actions/types";
 const initialState = {
   bookmarks: []
 };
@@ -16,6 +16,11 @@ export default function(state = initialState, action) {
         bookmarks: state.bookmarks.filter(
           bookmark => bookmark._id !== action.id
         )
+      };
+    case GET_BOOKMARKS:
+      return {
+        ...state,
+        bookmarks: action.payload
       };
     default:
       return state;
