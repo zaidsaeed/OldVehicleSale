@@ -9,12 +9,13 @@ const PostSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-    handle: {
-      type: String
-    },
-    name: {
-      type: String
-    },
+  handle: {
+    type: String
+  },
+  email: { type: String },
+  name: {
+    type: String
+  },
   model: {
     type: String
   },
@@ -31,11 +32,11 @@ const PostSchema = new Schema({
   },
   price: {
     type: Number,
-      required: true
+    required: true
   },
-    priceRange: {
-      type: Number
-    }
+  priceRange: {
+    type: Number
+  }
 });
 
 module.exports = Post = mongoose.model("post", PostSchema);

@@ -7,16 +7,15 @@ class PostForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        carModel: '',
-        imageURL: '',
-        description: '',
-        handle: '',
-        name: '',
-        price: '',
-        priceRange: '',
-        errors: {}
-
-
+      email: "",
+      carModel: "",
+      imageURL: "",
+      description: "",
+      handle: "",
+      name: "",
+      price: "",
+      priceRange: "",
+      errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
@@ -32,29 +31,37 @@ class PostForm extends Component {
   onSubmit(e) {
     e.preventDefault();
     const { user } = this.props.auth;
-    const {profile} = this.props.profile;
+    const { profile } = this.props.profile;
 
     console.log(user);
-    const { carModel, imageURL, description, price, transmission, mileage } = this.state;
+    const {
+      email,
+      carModel,
+      imageURL,
+      description,
+      price,
+      transmission,
+      mileage
+    } = this.state;
 
-    if(price<=2500) this.priceRange = 0;
-    else if(price<=5000) this.priceRange = 1;
+    if (price <= 2500) this.priceRange = 0;
+    else if (price <= 5000) this.priceRange = 1;
     else this.priceRange = 2;
 
-
     const newPost = {
-        handle: profile.handle,
-        name: user.name,
-        model: carModel,
-        description: description,
-        imageURL: imageURL,
-        user: user,
-        price: price,
-        priceRange: this.priceRange
+      //handle: profile.handle,
+      email: user.email,
+      name: user.name,
+      model: carModel,
+      description: description,
+      imageURL: imageURL,
+      user: user,
+      price: price,
+      priceRange: this.priceRange
     };
 
     this.props.addPost(newPost);
-    window.location = '/dashboard' ;
+    window.location = "/dashboard";
   }
 
   onChange(e) {
@@ -63,44 +70,50 @@ class PostForm extends Component {
 
   render() {
     return (
-        <form onSubmit={this.onSubmit}>
-      <div className="post-form mb-3">
-        <div className="card card-info">
-          <div className="card-header bg-info text-white">
-            Create a Car Post
-          </div>
-          <div className="card-body">
-            <div className="form-group">
-              <input
-                class="form-control form-control-lg"
-                placeholder="Car Model"
-                name="carModel"
-                onChange={e => this.onChange(e)}
-              />
-              <input
-                class="form-control form-control-lg mt-3"
-                placeholder="Car Image Url"
-                name="imageURL"
-                onChange={e => this.onChange(e)}
-              />
-                <input className={"form-control form-control-lg mt-3"} type={"number"} placeholder={"Price ($)"} name={"price"} onChange={e => this.onChange(e)}/>
+      <form onSubmit={this.onSubmit}>
+        <div className="post-form mb-3">
+          <div className="card card-info">
+            <div className="card-header bg-info text-white">
+              Create a Car Post
+            </div>
+            <div className="card-body">
+              <div className="form-group">
+                <input
+                  class="form-control form-control-lg"
+                  placeholder="Car Model"
+                  name="carModel"
+                  onChange={e => this.onChange(e)}
+                />
+                <input
+                  class="form-control form-control-lg mt-3"
+                  placeholder="Albumizr Album Link"
+                  name="imageURL"
+                  onChange={e => this.onChange(e)}
+                />
+                <input
+                  className={"form-control form-control-lg mt-3"}
+                  type={"number"}
+                  placeholder={"Price ($)"}
+                  name={"price"}
+                  onChange={e => this.onChange(e)}
+                />
 
-              <textarea
-                className="form-control form-control-lg mt-3"
-                placeholder="Description"
-                name="description"
-                onChange={e => this.onChange(e)}
+                <textarea
+                  className="form-control form-control-lg mt-3"
+                  placeholder="Description"
+                  name="description"
+                  onChange={e => this.onChange(e)}
+                />
+              </div>
+              <input
+                type={"submit"}
+                className="btn btn-dark"
+                value={"Submit"}
               />
             </div>
-            <input
-              type={"submit"}
-              className="btn btn-dark"
-              value={"Submit"}
-            />
           </div>
         </div>
-      </div>
-        </form>
+      </form>
     );
   }
 }
@@ -109,13 +122,13 @@ PostForm.propTypes = {
   addPost: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   errors: state.errors,
   auth: state.auth,
-    profile: state.profile
+  profile: state.profile
 });
 
 export default connect(

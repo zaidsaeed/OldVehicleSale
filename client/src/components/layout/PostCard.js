@@ -50,17 +50,22 @@ class PostCard extends Component {
 
         <div className="card-body">
           <div className={"row"}>
-            <div className={"col-md-4"}>
+            <div className={"col-md-6"}>
               <Link
                 to={{
                   pathname: "/post",
                   state: { post: model }
                 }}
               >
-                <img src={model.imageURL} />
+                <iframe
+                  src={model.imageURL}
+                  scrolling="no"
+                  frameborder="0"
+                  width="100%"
+                />
               </Link>
             </div>
-            <div className={"col-md-8"}>
+            <div className={"col-md-4"}>
               <p>
                 <span className={"lead text-muted"}>Price: </span>${model.price}
               </p>

@@ -14,15 +14,22 @@ class PostPage extends Component {
       >
         <div>
           <h1>{post.model}</h1>
-          <img
+
+          <iframe
             src={post.imageURL}
-            style={{ width: "600px", height: "400px" }}
+            scrolling="no"
+            frameborder="0"
+            allowfullscreen
+            width="700"
+            height="400"
           />
         </div>
         <div style={{ marginTop: "60px", marginLeft: "20px" }}>
           <p>Description: {post.description}</p>
           <p>Price: {post.price} </p>
-          <p>Poster: {post.name} </p>
+          <p>
+            Poster: {post.name}, {post.email}
+          </p>
           <button
             type="button"
             className="btn btn-info"
@@ -30,6 +37,7 @@ class PostPage extends Component {
           >
             Contact Poster
           </button>
+          <p>Posted at: {post.date} </p>
         </div>
       </div>
     );

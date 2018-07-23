@@ -27,8 +27,6 @@ router.get("/", (req, res) => {
     .catch(err => res.status(404).json({ nopostfound: "No Posts found" }));
 });
 
-
-
 //@route GET api/posts/:id
 //@desc Get posts by id
 //@access Public
@@ -43,27 +41,26 @@ router.get("/:id", (req, res) => {
 //@route GET api/posts/handle/:handle
 //@desc Get posts by handle
 //@access Public
-router.get('/handle/:handle', (req, res) => {
-    const errors= {};
+router.get("/handle/:handle", (req, res) => {
+  const errors = {};
 
-    Post.find({ handle: req.params.handle })
-        .sort({date: -1})
-        .then(posts => res.json(posts))
-        .catch(err => res.status(404).json({ nopostfound: "No Posts found" }));
-} );
+  Post.find({ handle: req.params.handle })
+    .sort({ date: -1 })
+    .then(posts => res.json(posts))
+    .catch(err => res.status(404).json({ nopostfound: "No Posts found" }));
+});
 
 //@route GET api/posts/handle/:handle
 //@desc Get posts by price
 //@access Public
-router.get('/priceRange/:priceRange', (req, res) => {
-    const errors= {};
+router.get("/priceRange/:priceRange", (req, res) => {
+  const errors = {};
 
-    Post.find({ price: req.params.price })
-        .sort({date: -1})
-        .then(posts => res.json(posts))
-        .catch(err => res.status(404).json({ nopostfound: "No Posts found" }));
-} );
-
+  Post.find({ price: req.params.price })
+    .sort({ date: -1 })
+    .then(posts => res.json(posts))
+    .catch(err => res.status(404).json({ nopostfound: "No Posts found" }));
+});
 
 //@route POST api/posts/
 //@desc Create post
@@ -84,10 +81,11 @@ router.post(
       model: req.body.model,
       imageURL: req.body.imageURL,
       user: req.user.id,
-        name: req.body.name,
-        handle: req.body.handle,
-        price: req.body.price,
-        priceRange: req.body.priceRange
+      name: req.body.name,
+      handle: req.body.handle,
+      price: req.body.price,
+      priceRange: req.body.priceRange,
+      email: req.body.email
     });
 
     newPost.save().then(post => res.json(post));
@@ -116,7 +114,5 @@ router.delete(
     });
   }
 );
-
-
 
 module.exports = router;
