@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 
-import PrivateRoute from './components/common/PrivateRoute';
+import PrivateRoute from "./components/common/PrivateRoute";
 
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
@@ -18,11 +18,12 @@ import Posts from "./components/posts/Posts";
 import PostForm from "./components/posts/PostForm";
 import DisplayPostCards from "./components/layout/DisplayPostCards";
 import PostPage from "./components/posts/PostPage";
-import Dashboard from './components/dashboard/Dashboard';
-import {clearCurrentProfile} from "./actions/profileActions";
-import CreateProfile from './components/create-profile/CreateProfile';
+import Dashboard from "./components/dashboard/Dashboard";
+import { clearCurrentProfile } from "./actions/profileActions";
+import CreateProfile from "./components/create-profile/CreateProfile";
 import EditProfile from "./components/edit-profile/EditProfile";
 import Profile from "./components/profile/Profile";
+import UserBookmarks from "./components/dashboard/UserBookmarks";
 
 //Check for token
 if (localStorage.jwtToken) {
@@ -55,6 +56,7 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/profile/:handle" component={Profile} />
+              <Route exact path="/bookmarks" component={UserBookmarks} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>
@@ -65,11 +67,19 @@ class App extends Component {
               <Route exact path="/searchResults" component={DisplayPostCards} />
               <Route exact path="/post" component={PostPage} />
               <Switch>
-                <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+                <PrivateRoute
+                  exact
+                  path="/create-profile"
+                  component={CreateProfile}
+                />
               </Switch>
-                <Switch>
-                  <PrivateRoute exact path="/edit-profile" component={EditProfile} />
-                </Switch>
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/edit-profile"
+                  component={EditProfile}
+                />
+              </Switch>
             </div>
             <Footer />
           </div>

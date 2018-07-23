@@ -10,7 +10,6 @@ class Navbar extends Component {
     e.preventDefault();
     this.props.clearCurrentProfile();
     this.props.logoutUser();
-
   }
 
   render() {
@@ -34,7 +33,34 @@ class Navbar extends Component {
                 }}
                 src="https://i.pinimg.com/originals/5e/f4/c9/5ef4c9420ffc1d618658fd1bec7db821.gif"
                 alt={user.name}
-                title="You must have a gravatar connected to your email to display an image"
+                title="Add a post"
+              />
+            </a>
+          </li>
+        </ul>
+      </Link>
+    );
+
+    const userBookmarksButton = (
+      <Link to="/bookmarks">
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <a
+              href="a"
+              style={{ color: "white", textDecoration: "none" }}
+              className="nav-link"
+            >
+              <img
+                className="rounded-circle"
+                style={{
+                  width: "25px",
+                  height: "25px",
+                  backgroundColor: "white",
+                  padding: "3px"
+                }}
+                src="https://www.freeiconspng.com/uploads/bookmarks-icon-16.png"
+                alt={user.name}
+                title="View user bookmarks"
               />
             </a>
           </li>
@@ -44,6 +70,7 @@ class Navbar extends Component {
 
     const authLinks = (
       <ul className="navbar-nav ml-auto">
+        <li className="nav-item">{userBookmarksButton}</li>
         <li className="nav-item">{addButton}</li>
         <li className="nav-item">
           <a
