@@ -1,6 +1,11 @@
 import React, { Component } from "react";
+import { getUserFromDB } from "../../actions/authActions";
+import { connect } from "react-redux";
+class UserBookmarks extends Component {
+  componentDidMount() {
+    this.props.getUserFromDB();
+  }
 
-export default class UserBookmarks extends Component {
   render() {
     return (
       <div>
@@ -9,3 +14,12 @@ export default class UserBookmarks extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { getUserFromDB }
+)(UserBookmarks);

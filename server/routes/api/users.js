@@ -86,7 +86,12 @@ router.post("/login", (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         //User matched
-        const payload = { id: user.id, name: user.name, avatar: user.avatar };
+        const payload = {
+          id: user.id,
+          name: user.name,
+          avatar: user.avatar,
+          bookmarks: user.bookmarks
+        };
         //Sign Token
         jwt.sign(
           payload,
@@ -117,6 +122,19 @@ router.get(
     res.json({
       id: req.user.id,
       name: req.user.name
+    });
+  }
+);
+
+//@route GET api/users/test
+//@desc Return current user from token in bearer header
+//@access Private
+router.get(
+  "/currentUser",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json({
+      user: req.user
     });
   }
 );

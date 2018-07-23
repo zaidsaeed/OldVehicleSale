@@ -31,6 +31,27 @@ export const loginUser = userData => dispatch => {
       const decoded = jwt_decode(token);
       //Set current user
       dispatch(setCurrentUser(decoded));
+
+      () => getUserFromDB();
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+//Login User
+export const getUserFromDB = () => dispatch => {
+  axios
+    .get("api/users/currentUser")
+    .then(res => {
+      console.log(res.data);
+      //Save to local storage
+      const { user } = res.data;
+      //Set current user
+      dispatch(setCurrentUser(user));
     })
     .catch(err =>
       dispatch({
