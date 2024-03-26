@@ -4,23 +4,29 @@ import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
 //Register User
-export const registerUser = userData => dispatch => {
+export const registerUser = (userData) => (dispatch) => {
   axios
-    .post("api/users/register", userData)
-    .then(res => console.log(res.data))
-    .catch(err =>
+    .post(
+      "https://oldvehiclesalebackend.onrender.com/api/users/register",
+      userData
+    )
+    .then((res) => console.log(res.data))
+    .catch((err) =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.response.data,
       })
     );
 };
 
 //Login User
-export const loginUser = userData => dispatch => {
+export const loginUser = (userData) => (dispatch) => {
   axios
-    .post("api/users/login", userData)
-    .then(res => {
+    .post(
+      "https://oldvehiclesalebackend.onrender.com/api/users/login",
+      userData
+    )
+    .then((res) => {
       //Save to local storage
       const { token } = res.data;
       //Set token to local storage
@@ -34,43 +40,43 @@ export const loginUser = userData => dispatch => {
 
       () => getUserFromDB();
     })
-    .catch(err =>
+    .catch((err) =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.response.data,
       })
     );
 };
 
 //Login User
-export const getUserFromDB = () => dispatch => {
+export const getUserFromDB = () => (dispatch) => {
   axios
-    .get("api/users/currentUser")
-    .then(res => {
+    .get("https://oldvehiclesalebackend.onrender.com/api/users/currentUser")
+    .then((res) => {
       console.log(res.data);
       //Save to local storage
       const { user } = res.data;
       //Set current user
       dispatch(setCurrentUser(user));
     })
-    .catch(err =>
+    .catch((err) =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.response.data,
       })
     );
 };
 
 //Set Logged in user
-export const setCurrentUser = decoded => {
+export const setCurrentUser = (decoded) => {
   return {
     type: SET_CURRENT_USER,
-    payload: decoded
+    payload: decoded,
   };
 };
 
 //Log user out
-export const logoutUser = () => dispatch => {
+export const logoutUser = () => (dispatch) => {
   // Remove token from localStorage
   localStorage.removeItem("jwtToken");
   //Remove auth header for future requests
