@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -23,7 +24,9 @@ const db = require("./config/keys").mongoURI;
 mongoose
   .connect(db)
   .then(() => console.log("MongoDbConnected"))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
+
+app.use(cors());
 
 //Passport middlewear
 app.use(passport.initialize());
