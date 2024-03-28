@@ -4,13 +4,15 @@ import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
 //Register User
-export const registerUser = (userData) => (dispatch) => {
+export const registerUser = (userData, callback) => (dispatch) => {
   axios
     .post(
       "https://oldvehiclesalebackend.onrender.com/api/users/register",
       userData
     )
-    .then((res) => console.log(res.data))
+    .then((res) => {
+      callback();
+    })
     .catch((err) =>
       dispatch({
         type: GET_ERRORS,
