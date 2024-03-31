@@ -5,10 +5,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
+      "name": "Attach to Chrome",
       "request": "launch",
-      "name": "Launch Program",
-      "program": "${workspaceFolder}/client\\src\\components\\auth\\Register.js"
+      "type": "chrome",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/client"
     }
   ]
 }

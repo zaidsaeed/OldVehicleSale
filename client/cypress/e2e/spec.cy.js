@@ -8,12 +8,12 @@ describe("Create user Spec", () => {
 
     //Fill out form
     cy.get('input[name="name"]')
-      .type("Zaid Saeed")
-      .should("have.value", "Zaid Saeed");
+      .type("Test Account")
+      .should("have.value", "Test Account");
 
     cy.get('input[name="email"]')
-      .type("saeedzaid003@gmail.com")
-      .should("have.value", "saeedzaid003@gmail.com");
+      .type("testaccount@gmail.com")
+      .should("have.value", "testaccount@gmail.com");
 
     cy.get('input[name="password"]')
       .type("password")
@@ -27,6 +27,6 @@ describe("Create user Spec", () => {
 
     // cy.url().should("not.include", "/register");
 
-    // cy.url().should("include", "/dashboard");
+    cy.url().should("include", "/dashboard");
   });
 });
