@@ -1,5 +1,5 @@
 describe("Create user Spec", () => {
-  it("Creates a User", () => {
+  it("Creates a User", async () => {
     //Navigate to user sign up page
     cy.visit("http://localhost:3000");
     cy.url().should("not.include", "/register");
@@ -25,8 +25,25 @@ describe("Create user Spec", () => {
 
     cy.get('input[type="submit"]').click();
 
-    // cy.url().should("not.include", "/register");
+    cy.url().should("not.include", "/register");
 
     cy.url().should("include", "/dashboard");
+
+    // Login to get auth token
+    cy.request(
+      "POST",
+      "https://oldvehiclesalebackend.onrender.com/api/users/login",
+      {
+        email: "testaccount@gmail.com",
+        password: "password",
+      }
+    ).then((response) => {
+      const deleteRequestOptions = {
+        method: "DELETE",
+        url: "https://oldvehiclesalebackend.onrender.com/api/users/testaccount@gmail.com",
+        headers: { Authorization: `${response.body.token}` },
+      };
+      cy.request(deleteRequestOptions);
+    });
   });
 });
