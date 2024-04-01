@@ -42,7 +42,7 @@ class Dashboard extends Component {
             <p>You have not yet setup a profile, please add some info.</p>
             <Link
               to="/create-profile"
-              className="btn btn-lg btn-info"
+              className="btn btn-lg btn-info create-profile-testing"
               style={{ marginBottom: "10px" }}
             >
               Create Profile
@@ -71,15 +71,14 @@ Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
 };
 
-const mapStatetoProps = state => ({
+const mapStatetoProps = (state) => ({
   profile: state.profile,
-  auth: state.auth
+  auth: state.auth,
 });
 
-export default connect(
-  mapStatetoProps,
-  { getCurrentProfile, deleteAccount }
-)(Dashboard);
+export default connect(mapStatetoProps, { getCurrentProfile, deleteAccount })(
+  Dashboard
+);
