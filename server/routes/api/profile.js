@@ -138,18 +138,18 @@ router.post(
   }
 );
 
-// router.delete(
-//   "/:id",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     Profile.deleteOne({ email: req.user.email })
-//       .then(() => {
-//         return res.json({ success: true });
-//       })
-//       .catch((err) => {
-//         res.status(404).json({ usernotfound: "No user found" });
-//       });
-//   }
-// );
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.deleteOne({ user: req.user.id })
+      .then(() => {
+        return res.json({ success: true });
+      })
+      .catch((err) => {
+        res.status(404).json({ profilenotfound: "No profile found" });
+      });
+  }
+);
 
 module.exports = router;
