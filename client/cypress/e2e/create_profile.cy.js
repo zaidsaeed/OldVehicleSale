@@ -27,5 +27,22 @@ describe("Create Profile Spec", function () {
     cy.url().should("not.include", "/create-profile");
 
     cy.url().should("include", "/dashboard");
+
+    // Login to get auth token
+    cy.request(
+      "POST",
+      "https://oldvehiclesalebackend.onrender.com/api/users/login",
+      {
+        email: "dummyaccount@gmail.com",
+        password: "password",
+      }
+    ).then((response) => {
+      const deleteRequestOptions = {
+        method: "DELETE",
+        url: `https://oldvehiclesalebackend.onrender.com/api/profile/${response.body.id}`,
+        headers: { Authorization: `${response.body.token}` },
+      };
+      cy.request(deleteRequestOptions);
+    });
   });
 });
