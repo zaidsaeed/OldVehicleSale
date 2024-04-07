@@ -87,7 +87,7 @@ router.post(
       email: req.body.email,
     });
 
-    newPost.save().then((post) => res.json(post));
+    return newPost.save().then((post) => res.json(post));
   }
 );
 

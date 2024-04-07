@@ -13,7 +13,7 @@ import { setProfileLoading } from "./profileActions";
 //Add Post
 export const addPost = (postData) => (dispatch) => {
   axios
-    .post("https://oldvehiclesalebackend.onrender.com/api/posts", postData)
+    .post("http://localhost:5000/api/posts", postData)
     .then((res) =>
       dispatch({
         type: ADD_POST,
