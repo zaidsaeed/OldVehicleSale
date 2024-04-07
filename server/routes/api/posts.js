@@ -44,7 +44,7 @@ router.get("/:id", (req, res) => {
 router.get("/handle/:handle", (req, res) => {
   const errors = {};
 
-  Post.find({ handle: req.params.handle })
+  return Post.find({ handle: req.params.handle })
     .sort({ date: -1 })
     .then((posts) => res.json(posts))
     .catch((err) => res.status(404).json({ nopostfound: "No Posts found" }));
@@ -56,7 +56,7 @@ router.get("/handle/:handle", (req, res) => {
 router.get("/priceRange/:priceRange", (req, res) => {
   const errors = {};
 
-  Post.find({ price: req.params.price })
+  return Post.find({ price: req.params.price })
     .sort({ date: -1 })
     .then((posts) => res.json(posts))
     .catch((err) => res.status(404).json({ nopostfound: "No Posts found" }));
