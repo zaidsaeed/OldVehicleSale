@@ -2,14 +2,17 @@ import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
+import { LOCAL_API_URL, RENDER_API_URL } from "./constants";
 
 //Register User
 export const registerUser = (userData, callback) => (dispatch) => {
+  const apiUrl = `${
+    process.env.REACT_APP_API_URL === "LOCALHOST"
+      ? LOCAL_API_URL
+      : RENDER_API_URL
+  }/api/users/register`;
   axios
-    .post(
-      "https://oldvehiclesalebackend.onrender.com/api/users/register",
-      userData
-    )
+    .post(apiUrl, userData)
     .then((res) => {
       callback();
     })
