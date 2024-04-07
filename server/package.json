@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "client-install": "cd ../client && npm install",
-    "start": "node server.js",
-    "server": "nodemon server.js",
+    "start": "cross-env NODE_ENV=DEV node server.js",
+    "server": "cross-env NODE_ENV=DEV nodemon server.js",
     "client": "cd ../client && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "cross-env NODE_ENV=test jest --testTimeout=5000 --detectOpenHandles"

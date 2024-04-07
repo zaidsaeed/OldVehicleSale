@@ -2,6 +2,16 @@ const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const mongod = MongoMemoryServer.create();
 
+const User = require("../../models/User.js");
+
+const loadData = async () => {
+  await User.create({
+    name: "Dummy Account",
+    email: "dummyaccount@gmail.com",
+    password: "$2a$10$xXPCOPBhVxfuM5wWaW9xruu67uTOusO10GfhVZsixisOtntlDIIz.",
+  });
+};
+
 const connect = async () => {
   const uri = await (await mongod).getUri();
   await mongoose.connect(uri);
@@ -25,4 +35,5 @@ module.exports = {
   connect,
   closeDatabase,
   clearDatabase,
+  loadData,
 };

@@ -91,40 +91,42 @@ router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  User.findOne({ email }).then((user) => {
-    if (!user) {
-      errors.email = "User not found";
-      return res.status(404).json(errors);
-    }
-
-    bcrypt.compare(password, user.password).then((isMatch) => {
-      if (isMatch) {
-        //User matched
-        const payload = {
-          id: user.id,
-          name: user.name,
-          avatar: user.avatar,
-          bookmarks: user.bookmarks,
-        };
-        //Sign Token
-        jwt.sign(
-          payload,
-          keys.secretOrKey,
-          { expiresIn: 3600 },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: "Bearer " + token,
-              id: user.id,
-            });
-          }
-        );
-      } else {
-        errors.password = "Password Incorrct";
-        return res.status(400).json(errors);
+  User.findOne({ email })
+    .then((user) => {
+      if (!user) {
+        errors.email = "User not found";
+        return res.status(404).json(errors);
       }
-    });
-  });
+
+      bcrypt.compare(password, user.password).then((isMatch) => {
+        if (isMatch) {
+          //User matched
+          const payload = {
+            id: user.id,
+            name: user.name,
+            avatar: user.avatar,
+            bookmarks: user.bookmarks,
+          };
+          //Sign Token
+          jwt.sign(
+            payload,
+            keys.secretOrKey,
+            { expiresIn: 3600 },
+            (err, token) => {
+              res.json({
+                success: true,
+                token: "Bearer " + token,
+                id: user.id,
+              });
+            }
+          );
+        } else {
+          errors.password = "Password Incorrect";
+          return res.status(400).json(errors);
+        }
+      });
+    })
+    .catch((err) => console.log(err));
 });
 
 //@route GET api/users/test

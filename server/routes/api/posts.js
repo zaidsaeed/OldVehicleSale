@@ -23,8 +23,8 @@ router.get("/test", (req, res) => res.json({ msg: "Posts WORKS" }));
 router.get("/", (req, res) => {
   Post.find()
     .sort({ date: -1 })
-    .then(posts => res.json(posts))
-    .catch(err => res.status(404).json({ nopostfound: "No Posts found" }));
+    .then((posts) => res.json(posts))
+    .catch((err) => res.status(404).json({ nopostfound: "No Posts found" }));
 });
 
 //@route GET api/posts/:id
@@ -32,8 +32,8 @@ router.get("/", (req, res) => {
 //@access Public
 router.get("/:id", (req, res) => {
   Post.findById(req.params.id)
-    .then(post => res.json(post))
-    .catch(err =>
+    .then((post) => res.json(post))
+    .catch((err) =>
       res.status(404).json({ nopostfound: "No Post found with that ID" })
     );
 });
@@ -46,8 +46,8 @@ router.get("/handle/:handle", (req, res) => {
 
   Post.find({ handle: req.params.handle })
     .sort({ date: -1 })
-    .then(posts => res.json(posts))
-    .catch(err => res.status(404).json({ nopostfound: "No Posts found" }));
+    .then((posts) => res.json(posts))
+    .catch((err) => res.status(404).json({ nopostfound: "No Posts found" }));
 });
 
 //@route GET api/posts/handle/:handle
@@ -58,8 +58,8 @@ router.get("/priceRange/:priceRange", (req, res) => {
 
   Post.find({ price: req.params.price })
     .sort({ date: -1 })
-    .then(posts => res.json(posts))
-    .catch(err => res.status(404).json({ nopostfound: "No Posts found" }));
+    .then((posts) => res.json(posts))
+    .catch((err) => res.status(404).json({ nopostfound: "No Posts found" }));
 });
 
 //@route POST api/posts/
@@ -69,7 +69,6 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log("req", req.body);
     const { errors, isValid } = validatePostInput(req.body);
 
     //Check validation
@@ -85,10 +84,10 @@ router.post(
       handle: req.body.handle,
       price: req.body.price,
       priceRange: req.body.priceRange,
-      email: req.body.email
+      email: req.body.email,
     });
 
-    newPost.save().then(post => res.json(post));
+    newPost.save().then((post) => res.json(post));
   }
 );
 
@@ -99,9 +98,9 @@ router.delete(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    User.findOne({ user: req.user.id }).then(profile => {
+    User.findOne({ user: req.user.id }).then((profile) => {
       Post.findById(req.params.id)
-        .then(post => {
+        .then((post) => {
           if (post.user.toString() != req.user.id) {
             return res
               .status(401)
@@ -110,7 +109,9 @@ router.delete(
           //Deleting post
           post.remove().then(() => res.json({ success: true }));
         })
-        .catch(err => res.status(404).json({ postnotfound: "No post found" }));
+        .catch((err) =>
+          res.status(404).json({ postnotfound: "No post found" })
+        );
     });
   }
 );
