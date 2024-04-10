@@ -7,11 +7,13 @@ import {
   SET_CURRENT_USER,
 } from "./types";
 
+import { apiPrefix } from "./constants";
+
 // Get current profiles
 export const getCurrentProfile = () => (dispatch) => {
   dispatch(setProfileLoading());
   axios
-    .get("https://oldvehiclesalebackend.onrender.com/api/profile")
+    .get(`${apiPrefix}/api/profile`)
     .then((res) =>
       dispatch({
         type: GET_PROFILE,
@@ -30,9 +32,7 @@ export const getCurrentProfile = () => (dispatch) => {
 export const getProfileByHandle = (handle) => (dispatch) => {
   dispatch(setProfileLoading());
   axios
-    .get(
-      `https://oldvehiclesalebackend.onrender.com/api/profile/handle/${handle}`
-    )
+    .get(`${apiPrefix}/api/profile/handle/${handle}`)
     .then((res) =>
       dispatch({
         type: GET_PROFILE,
@@ -50,7 +50,7 @@ export const getProfileByHandle = (handle) => (dispatch) => {
 //Create profile
 export const createProfile = (profileData, history) => (dispatch) => {
   axios
-    .post("https://oldvehiclesalebackend.onrender.com/api/profile", profileData)
+    .post(`${apiPrefix}/api/profile`, profileData)
     .then((res) => history.push("/dashboard"))
     .catch((err) =>
       dispatch({
@@ -64,7 +64,7 @@ export const createProfile = (profileData, history) => (dispatch) => {
 export const deleteAccount = () => (dispatch) => {
   if (window.confirm("Are you sure? This can NOT be undone.")) {
     axios
-      .delete("https://oldvehiclesalebackend.onrender.com/api/profile")
+      .delete(`${apiPrefix}/api/profile`)
       .then((res) =>
         dispatch({
           type: SET_CURRENT_USER,

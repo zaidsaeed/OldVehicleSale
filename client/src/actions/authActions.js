@@ -2,15 +2,11 @@ import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
-import { LOCAL_API_URL, RENDER_API_URL } from "./constants";
+import { apiPrefix } from "./constants";
 
 //Register User
 export const registerUser = (userData, callback) => (dispatch) => {
-  const apiUrl = `${
-    process.env.REACT_APP_API_URL === "LOCALHOST"
-      ? LOCAL_API_URL
-      : RENDER_API_URL
-  }/api/users/register`;
+  const apiUrl = `${apiPrefix}/api/users/register`;
   axios
     .post(apiUrl, userData)
     .then((res) => {
@@ -27,10 +23,7 @@ export const registerUser = (userData, callback) => (dispatch) => {
 //Login User
 export const loginUser = (userData) => (dispatch) => {
   axios
-    .post(
-      "https://oldvehiclesalebackend.onrender.com/api/users/login",
-      userData
-    )
+    .post(`${apiPrefix}/api/users/login`, userData)
     .then((res) => {
       //Save to local storage
       const { token } = res.data;
@@ -56,7 +49,7 @@ export const loginUser = (userData) => (dispatch) => {
 //Login User
 export const getUserFromDB = () => (dispatch) => {
   axios
-    .get("https://oldvehiclesalebackend.onrender.com/api/users/currentUser")
+    .get(`${apiPrefix}/api/users/currentUser`)
     .then((res) => {
       console.log(res.data);
       //Save to local storage

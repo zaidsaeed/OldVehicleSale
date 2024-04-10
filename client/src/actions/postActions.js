@@ -8,7 +8,8 @@ import {
   DELETE_POST,
   GET_PROFILE,
 } from "./types";
-import { setProfileLoading } from "./profileActions";
+
+import { apiPrefix } from "./constants";
 
 //Add Post
 export const addPost = (postData) => (dispatch) => {
@@ -32,7 +33,7 @@ export const addPost = (postData) => (dispatch) => {
 export const getPosts = () => (dispatch) => {
   dispatch(setPostLoading());
   axios
-    .get("https://oldvehiclesalebackend.onrender.com/api/posts")
+    .get(`${apiPrefix}/api/posts`)
     .then((res) =>
       dispatch({
         type: GET_POSTS,
@@ -51,9 +52,7 @@ export const getPosts = () => (dispatch) => {
 export const getPostsByHandle = (handle) => (dispatch) => {
   dispatch(setPostLoading());
   axios
-    .get(
-      `https://oldvehiclesalebackend.onrender.com/api/posts/handle/${handle}`
-    )
+    .get(`${apiPrefix}/api/posts/handle/${handle}`)
     .then((res) =>
       dispatch({
         type: GET_POSTS,
@@ -72,9 +71,7 @@ export const getPostsByHandle = (handle) => (dispatch) => {
 export const getPostsByPrice = (priceRange) => (dispatch) => {
   dispatch(setPostLoading());
   axios
-    .get(
-      `https://oldvehiclesalebackend.onrender.com/api/posts/priceRange/${priceRange}`
-    )
+    .get(`${apiPrefix}/api/posts/priceRange/${priceRange}`)
     .then((res) =>
       dispatch({
         type: GET_POSTS,
@@ -91,7 +88,7 @@ export const getPostsByPrice = (priceRange) => (dispatch) => {
 
 export const deletePost = (id) => (dispatch) => {
   axios
-    .delete(`https://oldvehiclesalebackend.onrender.com/api/posts/${id}`)
+    .delete(`${apiPrefix}/api/posts/${id}`)
     .then((res) =>
       dispatch({
         type: DELETE_POST,

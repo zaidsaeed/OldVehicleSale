@@ -7,13 +7,12 @@ import {
   GET_ERRORS,
 } from "./types";
 
+import { apiPrefix } from "./constants";
+
 //Add Post
 export const addBookmark = (bookmarkData) => (dispatch) => {
   axios
-    .post(
-      "https://oldvehiclesalebackend.onrender.com/api/bookmarks",
-      bookmarkData
-    )
+    .post(`${apiPrefix}/api/bookmarks`, bookmarkData)
     .then((res) =>
       dispatch({
         type: ADD_BOOKMARK,
@@ -30,37 +29,33 @@ export const addBookmark = (bookmarkData) => (dispatch) => {
 
 //Remove Bookmark
 export const removeBookmark = (postId) => (dispatch) => {
-  axios
-    .get("https://oldvehiclesalebackend.onrender.com/api/bookmarks")
-    .then((res) => {
-      const bookmark = res.data.find((bookmark) => {
-        if (bookmark.post === postId) {
-          return bookmark;
-        }
-      });
-      axios
-        .delete(
-          `https://oldvehiclesalebackend.onrender.com/api/bookmarks/${bookmark._id}`
-        )
-        .then((res) =>
-          dispatch({
-            type: DELETE_BOOKMARK,
-            id: bookmark._id,
-          })
-        )
-        .catch((err) =>
-          dispatch({
-            type: GET_ERRORS,
-            payload: err.response.data,
-          })
-        );
+  axios.get(`${apiPrefix}/api/bookmarks`).then((res) => {
+    const bookmark = res.data.find((bookmark) => {
+      if (bookmark.post === postId) {
+        return bookmark;
+      }
     });
+    axios
+      .delete(`${apiPrefix}/api/bookmarks/${bookmark._id}`)
+      .then((res) =>
+        dispatch({
+          type: DELETE_BOOKMARK,
+          id: bookmark._id,
+        })
+      )
+      .catch((err) =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data,
+        })
+      );
+  });
 };
 
 //Get Bookmarks
 export const getBookmarks = () => (dispatch) => {
   axios
-    .get("https://oldvehiclesalebackend.onrender.com/api/bookmarks")
+    .get(`${apiPrefix}/api/bookmarks`)
     .then((res) =>
       dispatch({
         type: GET_BOOKMARKS,
@@ -74,8 +69,3 @@ export const getBookmarks = () => (dispatch) => {
       })
     );
 };
-
-// //Set Loading State
-// export const setPostLoading = () => {
-//   return { type: POST_LOADING };
-// };
