@@ -25,11 +25,11 @@ class Navbar extends Component {
               className="nav-link"
             >
               <img
-                className="rounded-circle"
+                className="rounded-circle test-add-post-button"
                 style={{
                   width: "25px",
                   height: "25px",
-                  backgroundColor: "white"
+                  backgroundColor: "white",
                 }}
                 src="https://i.pinimg.com/originals/5e/f4/c9/5ef4c9420ffc1d618658fd1bec7db821.gif"
                 alt={user.name}
@@ -56,7 +56,7 @@ class Navbar extends Component {
                   width: "25px",
                   height: "25px",
                   backgroundColor: "white",
-                  padding: "3px"
+                  padding: "3px",
                 }}
                 src="https://www.freeiconspng.com/uploads/bookmarks-icon-16.png"
                 alt={user.name}
@@ -133,14 +133,13 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object
+  auth: PropTypes.object,
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
-export default connect(
-  mapStateToProps,
-  { logoutUser, clearCurrentProfile }
-)(Navbar);
+export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(
+  Navbar
+);

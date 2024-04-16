@@ -3,6 +3,7 @@ const { MongoMemoryServer } = require("mongodb-memory-server");
 const mongod = MongoMemoryServer.create();
 
 const User = require("../../models/User.js");
+const Posts = require("../../models/Posts.js");
 
 const loadData = async () => {
   await User.create({
@@ -10,7 +11,18 @@ const loadData = async () => {
     email: "dummyaccount@gmail.com",
     password: "$2a$10$xXPCOPBhVxfuM5wWaW9xruu67uTOusO10GfhVZsixisOtntlDIIz.",
   });
-};
+
+  await Posts.create({
+    description: "Dummy Desciption",
+    model: "Dummy model",
+    imageURL: "http://dummy-image.com",
+    user: dummyUser,
+    name: "Dummy",
+    handle: "Dummy",
+    price: "100",
+    priceRange: "100",
+    email: "dummyaccount@gmail.com",
+  });
 
 const connect = async () => {
   const uri = await (await mongod).getUri();
