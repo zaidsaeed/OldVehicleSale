@@ -3,7 +3,7 @@ describe("Create Profile Spec", function () {
     cy.login("dummyaccount@gmail.com", "password");
   });
 
-  it.only("Create New Profile", function () {
+  it("Create New Profile", function () {
     cy.get(".create-profile-testing").click();
 
     cy.get('input[name="handle"]')

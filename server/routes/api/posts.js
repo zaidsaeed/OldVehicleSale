@@ -1,13 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
 const passport = require("passport");
+
+const { emailQueue, sendNewEmail } = require("../../queue/queue");
 
 //Post model
 const Post = require("../../models/Posts");
-
-//Profile model
-// const Profile = require("../../models/Profile");
 
 //Validation
 const validatePostInput = require("../../validation/post");
@@ -75,6 +73,7 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors);
     }
+
     const newPost = new Post({
       description: req.body.description,
       model: req.body.model,
@@ -87,7 +86,23 @@ router.post(
       email: req.body.email,
     });
 
-    return newPost.save().then((post) => res.json(post));
+    newPost
+      .save()
+      .then((post) => res.json(post))
+      .catch((err) => console.log("err", err));
+
+    // .then(async (post) => {
+    //   const mssg = {
+    //     from: "saeedzaid003@gmail.com",
+    //     to: "saeedzaid003@gmail.com",
+    //     subject: "Email Subject",
+    //     text: "This is a test email",
+    //   };
+    //   return sendNewEmail(emailQueue, mssg);
+    // })
+    // .then((job) => {
+    //   return res.json(job);
+    // })
   }
 );
 
@@ -112,6 +127,32 @@ router.delete(
         .catch((err) =>
           res.status(404).json({ postnotfound: "No post found" })
         );
+    });
+  }
+);
+
+//@route DELETE api/posts/:id
+//@desc Delete post
+//@access Private
+router.delete(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findOne({ user: req.user.id }).then(() => {
+      Post.findOne({ model: req.body.model })
+        .then((post) => {
+          if (post.user.toString() != req.user.id) {
+            return res
+              .status(401)
+              .json({ notauthorized: "User not authorized" });
+          }
+          //Deleting post
+          post.deleteOne().then(() => res.json({ success: true }));
+        })
+        .catch((err) => {
+          console.log("Error: ", err);
+          res.status(404).json({ postnotfound: "No post found" });
+        });
     });
   }
 );

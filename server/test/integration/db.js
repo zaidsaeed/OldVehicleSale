@@ -12,6 +12,8 @@ const loadData = async () => {
     password: "$2a$10$xXPCOPBhVxfuM5wWaW9xruu67uTOusO10GfhVZsixisOtntlDIIz.",
   });
 
+  const dummyUser = await User.findOne({ email: "dummyaccount@gmail.com" });
+
   await Posts.create({
     description: "Dummy Desciption",
     model: "Dummy model",

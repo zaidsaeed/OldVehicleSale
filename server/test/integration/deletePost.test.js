@@ -2,7 +2,7 @@ const request = require("supertest");
 const app = require("../../app.js");
 const db = require("./db.js");
 
-describe.only("Should Delete A Post", () => {
+describe("Should Delete A Post", () => {
   beforeAll(async () => {
     await db.connect();
     await db.loadData();
@@ -16,7 +16,7 @@ describe.only("Should Delete A Post", () => {
     await db.closeDatabase();
   });
 
-  it.only("Should Delete A Post", async () => {
+  it("Should Delete A Post", async () => {
     const logInResponse = await request(app)
       .post("/api/users/login")
       .set("content-type", "application/json")
@@ -32,12 +32,10 @@ describe.only("Should Delete A Post", () => {
       .set("Authorization", logInResponse.body.token)
       .send({ model: "Dummy model" })
       .expect(200)
-      .expect("Content-Type", "application/json; charset=utf-8");
-    //   .expect(function (res) {
-    //     if (!res.body.hasOwnProperty("user"))
-    //       throw new Error("Expected 'status' key!");
-    //     if (!res.body.hasOwnProperty("model"))
-    //       throw new Error("Expected 'message' key!");
-    //   });
+      .expect("Content-Type", "application/json; charset=utf-8")
+      .expect(function (res) {
+        if (!res.body.hasOwnProperty("success"))
+          throw new Error("Expected 'status' key!");
+      });
   });
 });
