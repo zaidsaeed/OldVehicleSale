@@ -10,6 +10,8 @@ const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
 const posts = require("./routes/api/posts");
 const bookmarks = require("./routes/api/bookmarks");
+const { emailQueue } = require("./queue/queue.js");
+const processEmailQueue = require("./queue/processEmailQueue.js");
 
 const app = express();
 
@@ -41,5 +43,9 @@ app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/posts", posts);
 app.use("/api/bookmarks", bookmarks);
+
+if (process.env.NODE_ENV === "DEV" || process.env.NODE_ENV === "PRODUCTION") {
+  emailQueue.process(processEmailQueue);
+}
 
 module.exports = app;
