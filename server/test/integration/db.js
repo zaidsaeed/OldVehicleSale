@@ -23,6 +23,7 @@ const loadData = async () => {
     priceRange: "100",
     email: "dummyaccount@gmail.com",
   });
+};
 
 const connect = async () => {
   const uri = await (await mongod).getUri();
