@@ -4,7 +4,7 @@ describe("Create Post Spec", function () {
   });
 
   it("Create New Post", function () {
-    cy.get(".create-post-testing").click();
+    cy.get(".test-add-post-button").click();
 
     cy.get('input[name="carModel"]')
       .type("Tesla Model S")
@@ -16,7 +16,7 @@ describe("Create Post Spec", function () {
 
     cy.get('input[name="price"]').type("100").should("have.value", "100");
 
-    cy.get('input[name="description"]')
+    cy.get('textarea[name="description"]')
       .type("Amazing car with amazing interior")
       .should("have.value", "Amazing car with amazing interior");
 
@@ -37,7 +37,7 @@ describe("Create Post Spec", function () {
     ).then((response) => {
       const deleteRequestOptions = {
         method: "DELETE",
-        url: `https://oldvehiclesalebackend.onrender.com/api/posts/`,
+        url: `https://oldvehiclesalebackend.onrender.com/api/posts`,
         headers: { Authorization: `${response.body.token}` },
         body: {
           model: "Tesla Model S",

@@ -14,7 +14,7 @@ import { apiPrefix } from "./constants";
 //Add Post
 export const addPost = (postData) => (dispatch) => {
   axios
-    .post("http://localhost:5000/api/posts", postData)
+    .post(`${apiPrefix}/api/posts`, postData)
     .then((res) =>
       dispatch({
         type: ADD_POST,

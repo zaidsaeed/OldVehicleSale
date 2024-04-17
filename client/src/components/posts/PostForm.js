@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPost } from "../../actions/postActions";
+import { withRouter } from "react-router-dom";
 
 class PostForm extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class PostForm extends Component {
       name: "",
       price: "",
       priceRange: "",
-      errors: {}
+      errors: {},
     };
 
     this.onChange = this.onChange.bind(this);
@@ -41,7 +42,7 @@ class PostForm extends Component {
       description,
       price,
       transmission,
-      mileage
+      mileage,
     } = this.state;
 
     if (price <= 2500) this.priceRange = 0;
@@ -57,7 +58,7 @@ class PostForm extends Component {
       imageURL: imageURL,
       user: user,
       price: price,
-      priceRange: this.priceRange
+      priceRange: this.priceRange,
     };
 
     this.props.addPost(newPost);
@@ -70,50 +71,44 @@ class PostForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
-        <div className="post-form mb-3">
-          <div className="card card-info">
-            <div className="card-header bg-info text-white">
-              Create a Car Post
-            </div>
-            <div className="card-body">
-              <div className="form-group">
-                <input
-                  class="form-control form-control-lg"
-                  placeholder="Car Model"
-                  name="carModel"
-                  onChange={e => this.onChange(e)}
-                />
-                <input
-                  class="form-control form-control-lg mt-3"
-                  placeholder="Albumizr Album Link"
-                  name="imageURL"
-                  onChange={e => this.onChange(e)}
-                />
-                <input
-                  className={"form-control form-control-lg mt-3"}
-                  type={"number"}
-                  placeholder={"Price ($)"}
-                  name={"price"}
-                  onChange={e => this.onChange(e)}
-                />
-
-                <textarea
-                  className="form-control form-control-lg mt-3"
-                  placeholder="Description"
-                  name="description"
-                  onChange={e => this.onChange(e)}
-                />
-              </div>
+      <div className="post-form mb-3">
+        <div className="card card-info">
+          <div className="card-header bg-info text-white">
+            Create a Car Post
+          </div>
+          <form className="card-body" onSubmit={this.onSubmit}>
+            <div className="form-group">
               <input
-                type={"submit"}
-                className="btn btn-dark"
-                value={"Submit"}
+                class="form-control form-control-lg"
+                placeholder="Car Model"
+                name="carModel"
+                onChange={(e) => this.onChange(e)}
+              />
+              <input
+                class="form-control form-control-lg mt-3"
+                placeholder="Albumizr Album Link"
+                name="imageURL"
+                onChange={(e) => this.onChange(e)}
+              />
+              <input
+                className={"form-control form-control-lg mt-3"}
+                type={"number"}
+                placeholder={"Price ($)"}
+                name={"price"}
+                onChange={(e) => this.onChange(e)}
+              />
+
+              <textarea
+                className="form-control form-control-lg mt-3"
+                placeholder="Description"
+                name="description"
+                onChange={(e) => this.onChange(e)}
               />
             </div>
-          </div>
+            <input type={"submit"} className="btn btn-dark" value={"Submit"} />
+          </form>
         </div>
-      </form>
+      </div>
     );
   }
 }
@@ -122,16 +117,13 @@ PostForm.propTypes = {
   addPost: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   errors: state.errors,
   auth: state.auth,
-  profile: state.profile
+  profile: state.profile,
 });
 
-export default connect(
-  mapStateToProps,
-  { addPost }
-)(PostForm);
+export default connect(mapStateToProps, { addPost })(withRouter(PostForm));
